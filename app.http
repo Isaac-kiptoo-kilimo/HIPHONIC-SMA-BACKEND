@@ -1,2 +1,60 @@
 ###
 GET http://localhost:5000/api/users
+
+
+
+### register user
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+    "Username": "ISAACKIP245" ,
+    "Email": "ISAACKILIMO4578@gmail.com" ,
+    "Password": "1234562@Ik",
+    "TagName": "@OSAACKIP2",
+    "Location": "Nyeri"
+}
+
+### Login user
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+    "Email": "technolcyber1@gmail.com",
+    "Password": "1234562@Ik"
+}
+
+
+### update user
+PUT http://localhost:5000/api/users/update/
+Content-Type: application/json
+
+{
+    "Username":"Leah35" ,
+    "TagName":"@leah67",
+    "Location":"Nyeri2"
+}
+
+
+### update the user password
+PATCH http://localhost:5000/api/users/patch/
+Content-Type: application/json
+
+
+{
+    "Password": "123456@Ia"
+}
+
+
+
+### Fetching/getting all users
+GET http://localhost:5000/api/users
+
+
+### Fetching/getting single user
+GET http://localhost:5000/api/users/single/
+
+
+### Deleting a single user
+DELETE  http://localhost:5000/api/users/delete/
+
