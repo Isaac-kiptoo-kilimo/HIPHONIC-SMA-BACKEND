@@ -5,7 +5,7 @@ export const successMessage=(res,message)=>{
 }
 
 export const validationError=(res,message)=>{
-    res.status(400).json({message:message})
+    res.status(400).send(message.details[0].message)
 }
 
 

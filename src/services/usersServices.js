@@ -3,9 +3,9 @@ import { poolRequest, sql } from "../utils/dbConnect.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const registerUserService = async () => {
+export const registerUserService = async (newUser) => {
   try {
-    const newUser = await poolRequest()
+    const newRegisteredUser = await poolRequest()
       .input("UserID", sql.VarChar, newUser.UserID)
       .input("Username", sql.VarChar, newUser.Username)
       .input("Email", sql.VarChar, newUser.Email)
@@ -15,8 +15,8 @@ export const registerUserService = async () => {
       .query(
         "INSERT INTO tbl_user(UserID,Username,Email,Password,TagName,Location) VALUES(@UserID,@Username,@Email,@Password,@TagName,@Location)"
       );
-    logger.info("new user service", newUser);
-    return newUser;
+    logger.info("new user service", newRegisteredUser);
+    return newRegisteredUser;
   } catch (error) {
     logger.error("Error while registering", error);
     return { error: "Invalid Credentials" };
@@ -82,24 +82,25 @@ export const updatePasswordService = async (updatePassword) => {
       .input("UserID", sql.VarChar, updatePassword.UserID)
       .input("Password", sql.VarChar, updatePassword.Password)
       .query("UPDATE tbl_user SET Password=@Password WHERE UserID=@UserID");
-        logger.info("updated password", updatedPassword);
-        return updatedPassword;
+    logger.info("updated password", updatedPassword);
+    return updatedPassword;
   } catch (error) {
-        return { error: "Invalid Credentials" };
+    return { error: "Invalid Credentials" };
   }
 };
 
-export const getUserByEmailService = async (email) => {
- try {
+export const getUserByEmailService = async (Email) => {
+  try {
     const getUserByEmail = await poolRequest()
-    .input("Email", sql.VarChar, email)
-    .query("SELECT * FROM tbl_user WHERE Email=@email");
-  logger.info("single user", getUserByEmail.recordset);
-  const { Password, ...user } = getUserByEmail.recordset;
-    return user;
- } catch (error) {
-    return { error: "Invalid Credentials" };
- }
+      .input("Email", sql.VarChar, Email)
+      .query("SELECT * FROM tbl_user WHERE Email=@email");
+    console.log("single user", getUserByEmail.recordset);
+    if (getUserByEmail.rowsAffected[0] >= 0) {
+      return getUserByEmail.rowsAffected[0];
+    }
+  } catch (error) {
+    return error
+  }
 };
 
 export const getAllUsersService = async (users) => {
@@ -109,6 +110,6 @@ export const getAllUsersService = async (users) => {
     console.log("users", users);
     return users;
   } catch (error) {
-    return error;
+    return { error: "Invalid Credentials" };
   }
 };
