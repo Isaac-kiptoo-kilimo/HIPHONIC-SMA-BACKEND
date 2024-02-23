@@ -1,7 +1,7 @@
+import bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken";
 import logger from "../utils/Logger.js";
 import { poolRequest, sql } from "../utils/dbConnect.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 export const registerUserService = async (newUser) => {
   try {
@@ -29,26 +29,20 @@ export const authenticateloginUserService = async (user) => {
       .input("Email", sql.VarChar, user.Email)
       .query("SELECT * FROM tbl_user WHERE Email=@Email");
     if (userFoundResponse.recordset[0]) {
-      if (
-        await bcrypt.compare(
-          user.Password,
-          userFoundResponse.recordset[0].Password
-        )
-      ) {
-        const token = jwt.sign(
-          {
-            UserID: userFoundResponse.recordset[0].UserID,
-            Password: userFoundResponse.recordset[0].Password,
-            Email: userFoundResponse.recordset[0].Email,
-          },
-          process.env.SECRET_KEY,
-          { expiresIn: "24hr" }
-        );
-        logger.info("userFoundResponse", userFoundResponse);
-        const { Password, ...user } = userFoundResponse.recordset[0];
-        return { user, token: `JWT ${token}` };
-      } else {
-        return { error: "Invalid Credentials" };
+    
+      if(bcrypt.compare(user.Password,userFoundResponse.recordset[0].Password)){
+
+        let token=jwt.sign({
+          UserID:userFoundResponse.recordset[0].UserID,
+          Password:userFoundResponse.recordset[0].Password,
+          Email:userFoundResponse.recordset[0].Email
+        },process.env.SECRET_KEY,{ expiresIn: "24h" })
+        console.log("Token is",token);
+        const {Password,...user}=userFoundResponse.recordset[0]
+        return {user,token:`JWT ${token}`}
+  
+      }else{
+        return { error: 'Invalid Credentials' };
       }
     } else {
       return { error: "Invalid Credentials" };
@@ -58,6 +52,7 @@ export const authenticateloginUserService = async (user) => {
     return { error: "Invalid Credentials" };
   }
 };
+
 
 export const updateUserService = async (updateUser) => {
   try {
@@ -103,6 +98,15 @@ export const getUserByEmailService = async (Email) => {
   }
 };
 
+export const getSingleUserServices=async(UserID)=>{
+  const singleUser= await poolRequest()
+  .input('UserID', sql.VarChar,UserID)
+  .query('SELECT * FROM tbl_user WHERE UserID = @UserID ')
+  console.log('single user',singleUser);
+  return singleUser
+}
+
+
 export const getAllUsersService = async (users) => {
   try {
     const allUsers = await poolRequest().query(`SELECT * FROM tbl_user`);
@@ -113,3 +117,12 @@ export const getAllUsersService = async (users) => {
     return { error: "Invalid Credentials" };
   }
 };
+
+// Fetching delete user
+export const deleteUserServices=async(UserID)=>{
+  const deletedUser= await poolRequest()
+  .input('UserID', sql.VarChar,UserID)
+  .query('DELETE FROM tbl_user WHERE UserID = @UserID ')
+  console.log(' yeah',deletedUser.recordset);
+  return deletedUser.recordset;
+}

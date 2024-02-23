@@ -8,10 +8,10 @@ POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
-    "Username": "ISAACKIP245" ,
-    "Email": "ISAACKILIMO4578@gmail.com" ,
-    "Password": "1234562@Ik",
-    "TagName": "@OSAACKIP2",
+    "Username": "isooo" ,
+    "Email": "isooo@gmail.com" ,
+    "Password": "123456@Ik",
+    "TagName": "@isoo",
     "Location": "Nyeri"
 }
 
@@ -20,8 +20,8 @@ POST http://localhost:5000/api/users/login
 Content-Type: application/json
 
 {
-    "Email": "technolcyber1@gmail.com",
-    "Password": "1234562@Ik"
+    "Email": "isooo@gmail.com",
+    "Password": "123456@Ik"
 }
 
 
@@ -52,9 +52,9 @@ GET http://localhost:5000/api/users
 
 
 ### Fetching/getting single user
-GET http://localhost:5000/api/users/single/
+GET http://localhost:5000/api/users/single/0bb168a7-6e84-402d-b964-97cd852085a7
 
 
 ### Deleting a single user
-DELETE  http://localhost:5000/api/users/delete/
+DELETE  http://localhost:5000/api/users/delete/0bb168a7-6e84-402d-b964-97cd852085a7
 
