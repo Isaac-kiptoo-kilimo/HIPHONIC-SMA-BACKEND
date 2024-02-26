@@ -95,3 +95,41 @@ Content-Type: application/json
 
 ### Delete a post by post ID
 DELETE  http://localhost:5000/api/posts/f81299f4-ea3d-44d8-a634-2bbf4c53cf66
+
+
+
+##****************************************************FRIENDSHIP**************************************************************##
+
+### Become friends
+POST http://localhost:5000/api/friendships
+Content-Type: application/json
+
+{
+    "User1ID": "9e815b48-c822-48dc-88ee-304cc322e022" ,
+    "User2ID": "e6511cb1-89aa-4e3d-820a-2f88f96ca5ec"
+}
+
+        
+### updating a single friendship
+PATCH http://localhost:5000/api/friendships/patch/96e7428c-4de7-478e-884e-9e3bef8cad5a
+Content-Type: application/json
+
+{
+
+}
+
+
+### Fetching/getting all friends
+GET http://localhost:5000/api/friendships/
+
+
+### Fetching/getting all individual user friends
+GET http://localhost:5000/api/user/friendships/5202714c-fc4c-4651-b7bf-ad53a5d91ef1
+
+
+### Fetching/getting single friendship
+GET http://localhost:5000/api/friendships/single/96e7428c-4de7-478e-884e-9e3bef8cad5a
+
+
+### Deleting a single friend
+DELETE  http://localhost:5000/api/friendships/delete/9d11d1a9-d0bd-43fa-87d4-c6dd279b9686/

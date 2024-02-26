@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 
 import userRouter from './src/routes/usersRoutes.js'
 import postRoutes from './src/routes/postRoutes.js'
+import friendshipRouter from './src/routes/friendshipRoutes.js'
 
 dotenv.config()
 
@@ -22,7 +23,7 @@ app.use(cors(corsOptions));
 
 app.use('/api',userRouter)
 app.use('/api',postRoutes)
-
+app.use('/api',friendshipRouter)
 
 
 
