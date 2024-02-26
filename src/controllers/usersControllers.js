@@ -51,7 +51,7 @@ export const registerNewUserController = async (req, res) => {
         UserID:UserID.toLowerCase(),
         Username: Username.toLowerCase(),
         Email: Email.toLowerCase(),
-        Password: hashedPassword.toLowerCase(),
+        Password: hashedPassword,
         TagName: TagName.toLowerCase(),
         Location: Location.toLowerCase() };
         console.log("created user",registeredUser);

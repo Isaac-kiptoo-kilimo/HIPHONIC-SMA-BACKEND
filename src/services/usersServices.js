@@ -30,7 +30,7 @@ export const authenticateloginUserService = async (user) => {
       .query("SELECT * FROM tbl_user WHERE Email=@Email");
     if (userFoundResponse.recordset[0]) {
     
-      if(bcrypt.compare(user.Password,userFoundResponse.recordset[0].Password)){
+      if(await bcrypt.compare(user.Password,userFoundResponse.recordset[0].Password)){
 
         let token=jwt.sign({
           UserID:userFoundResponse.recordset[0].UserID,
