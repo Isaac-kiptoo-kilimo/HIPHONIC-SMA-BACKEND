@@ -7,14 +7,19 @@ import userRouter from './src/routes/usersRoutes.js'
 dotenv.config()
 
 const app=express()
-
+var corsOptions = {
+    origin: 'http://localhost:5173',
+    optionsSuccessStatus: 200 
+}
 const PORT=process.env.PORT || 3500
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(cors(corsOptions));
+
 app.use('/api',userRouter)
 
-app.use(cors)
+
 
 
 
