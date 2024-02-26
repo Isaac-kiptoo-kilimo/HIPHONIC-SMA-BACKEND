@@ -12,10 +12,9 @@ CREATE TABLE tbl_user (
     isSend BIT DEFAULT 0,
 );
 
-SELECT * FROM tbl_user
+-- SELECT * FROM tbl_user
 
-DROP TABLE tbl_user
-
+-- DROP TABLE tbl_user
 
 INSERT INTO tbl_user (userID, Username, Email, Password, TagName, Location)
 VALUES
@@ -30,21 +29,21 @@ VALUES
     ('9', 'MichaelLee', 'michael.lee@example.com', 'hashed_password_9', 'Coder', 'CityI'),
     ('10', 'EmmaDavis', 'emma.davis@example.com', 'hashed_password_10', 'Dreamer', 'CityJ');
 
-
-
-
 -- Create Post Table
-CREATE TABLE Post (
-    PostID VARCHAR(255) PRIMARY KEY,
-    UserID VARCHAR(255),
-    Content VARCHAR(999),
-    PostDate DATETIME DEFAULT GETDATE(),
-    FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
+CREATE TABLE post (
+post_id  VARCHAR(255) PRIMARY KEY,
+UserID  VARCHAR(255),
+content VARCHAR(999) DEFAULT 'no content',
+post_date DATETIME DEFAULT GETDATE(),
+likes INT DEFAULT 0,
+comments INT DEFAULT 0,
+FOREIGN KEY (UserID)
+REFERENCES tbl_user (UserID)
 );
 
+SELECT * from post;
 
-
-
+DROP TABLE post;
 
 -- Create Comment Table
 CREATE TABLE Comment (
@@ -57,7 +56,7 @@ CREATE TABLE Comment (
     FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
 );
 
-
+DROP TABLE Comment;
 
 
 
@@ -70,6 +69,7 @@ CREATE TABLE tbl_like (
     FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
 );
 
+DROP TABLE tbl_like;
 
 
 -- Create Friendship Table
@@ -95,9 +95,9 @@ CREATE TABLE Photo (
     FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
 );
 
-SELECT * FROM Photo
+-- SELECT * FROM Photo
 
-DROP TABLE Photo
+-- DROP TABLE Photo
 
 
 -- Create Group Table

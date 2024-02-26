@@ -1,13 +1,12 @@
 ###
 GET http://localhost:5000/api/users
 
-
-
 ### register user
 POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
+
     "Username": "titus3" ,
     "Email": "titus3@gmail.com" ,
     "Password": "123456@Tk",
@@ -45,8 +44,6 @@ Content-Type: application/json
     "Password": "123456@Ia"
 }
 
-
-
 ### Fetching/getting all users
 GET http://localhost:5000/api/users
 
@@ -58,3 +55,43 @@ GET http://localhost:5000/api/users/single/0bb168a7-6e84-402d-b964-97cd852085a7
 ### Deleting a single user
 DELETE  http://localhost:5000/api/users/delete/0bb168a7-6e84-402d-b964-97cd852085a7
 
+
+
+//Posts
+### Create a new post
+POST http://localhost:5000/api/posts
+content-Type: application/json
+
+# {
+  # "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
+  # "content": "This is a new post by Mike.",
+  # "likes": 18,
+  # "comments": 10
+# }
+
+{
+  "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
+  "content": "This is a new post 2 by Mike.",
+  "likes": 18,
+  "comments": 10
+}
+
+### Fetch all posts
+GET http://localhost:5000/api/posts
+
+### Fetch a post by post id
+GET http://localhost:5000/api/posts/c9cdc0b9-7628-4d7a-85c2-c125a27388c8
+
+### Update a post by post ID
+PUT http://localhost:5000/api/posts/f81299f4-ea3d-44d8-a634-2bbf4c53cf66
+Content-Type: application/json
+
+{
+  "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
+  "content": "This is an updated post by Jane.",
+  "likes": 15,
+  "comments": 7
+}
+
+### Delete a post by post ID
+DELETE  http://localhost:5000/api/posts/f81299f4-ea3d-44d8-a634-2bbf4c53cf66
