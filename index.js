@@ -20,8 +20,6 @@ app.use('/api',postRoutes)
 
 app.use(cors)
 
-
-
 app.listen(PORT,()=>{
     console.log(`This app is running on port ${PORT}`);
 })
