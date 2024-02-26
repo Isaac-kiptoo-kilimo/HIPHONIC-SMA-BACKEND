@@ -95,3 +95,48 @@ Content-Type: application/json
 
 ### Delete a post by post ID
 DELETE  http://localhost:5000/api/posts/f81299f4-ea3d-44d8-a634-2bbf4c53cf66
+
+
+
+
+###
+GET http://localhost:5000/api/photos
+
+###
+GET http://localhost:5000/api/photos/1
+
+###
+POST  http://localhost:5000/api/photos
+
+Content-Type: application/json
+
+{
+     
+    "UserID": "user123",
+    "PhotoURL": "https://example.com/photo.jpg",
+    "UploadDate": "2024-02-26T12:00:00Z"
+
+}
+###
+DELETE   http://localhost:5000/api/photos/3
+
+###
+GET   http://localhost:5000/api/events
+
+###
+DELETE  http://localhost:5000/api/events/2
+
+###
+POST  http://localhost:5000/api/events/
+Content-Type: application/json
+{
+{
+ 
+ "EventName": "Event 5",
+  "Description": "Description for Event 2",
+  "EventDate": "2024-02-19T06:19:19.010Z",
+  "Location": "Location 3",
+  "EventPosterURL": "poster_url_2"
+}
+
+}
