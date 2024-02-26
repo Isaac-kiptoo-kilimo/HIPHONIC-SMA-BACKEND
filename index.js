@@ -2,7 +2,9 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+
 import userRouter from './src/routes/usersRoutes.js'
+import postRoutes from './src/routes/postRoutes.js'
 
 dotenv.config()
 
@@ -12,7 +14,9 @@ const PORT=process.env.PORT || 3500
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
+
 app.use('/api',userRouter)
+app.use('/api',postRoutes)
 
 app.use(cors)
 
