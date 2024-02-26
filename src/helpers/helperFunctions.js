@@ -1,5 +1,3 @@
-
-
 export const successMessage=(res,message)=>{
     res.status(200).json({message:message})
 }
