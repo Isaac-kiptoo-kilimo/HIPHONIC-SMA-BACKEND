@@ -90,14 +90,14 @@ CREATE TABLE Friendship (
 CREATE TABLE Photo (
     PhotoID VARCHAR(255) PRIMARY KEY,
     UserID VARCHAR(255),
-    PhotoURL VARCHAR(255),
+    PhotoURL VARCHAR(999),
     UploadDate DATETIME,
     FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
 );
 
 SELECT * FROM Photo
 
--- DROP TABLE Photo
+DROP TABLE Photo
 
 
 -- Create Group Table
