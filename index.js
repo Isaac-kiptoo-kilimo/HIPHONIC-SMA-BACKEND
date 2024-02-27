@@ -29,8 +29,6 @@ app.use('/api',eventsRouter)
 
 
 
-
-
 app.listen(PORT,()=>{
     console.log(`This app is running on port ${PORT}`);
 })
