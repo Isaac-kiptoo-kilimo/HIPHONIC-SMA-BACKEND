@@ -20,7 +20,7 @@ export const createPhotoService = async (newPhoto) => {
             .query(
                 "INSERT INTO Photo (PhotoID, UserID, PhotoURL, UploadDate) VALUES (@PhotoID, @UserID, @PhotoURL, @UploadDate)"
             );
-
+            console.log("result",result);
         return result;
     } catch (error) {
         console.error("Error occurred while creating photo:", error);
@@ -48,5 +48,24 @@ export const deletePhotoService = async (photoId) => {
             .query(`DELETE FROM Photo WHERE PHOTOID = @PhotoID`);
     } catch (error) {
         throw error;
+    }
+};
+export const updatePhotoService = async (photoId, updatedPhoto) => {
+    const { PhotoID, UserID, PhotoURL, UploadDate } = updatedPhoto;
+    try {
+        const result = await poolRequest()
+            .input("PhotoID", sql.VarChar, PhotoID)
+            .input("UserID", sql.VarChar, UserID)
+            .input("PhotoURL", sql.VarChar, PhotoURL)
+            .input("UploadDate", sql.DateTime, UploadDate)
+            .input("PhotoId", sql.Int, photoId)
+            .query(
+                "UPDATE Photo SET PhotoID = @PhotoID, UserID = @UserID, PhotoURL = @PhotoURL, UploadDate = @UploadDate WHERE PHOTOID = @PhotoId"
+            );
+
+        return result;
+    } catch (error) {
+        console.error("Error occurred while updating photo:", error);
+        throw new Error("Failed to update photo. Please try again later.");
     }
 };
