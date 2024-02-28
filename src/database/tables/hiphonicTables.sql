@@ -12,7 +12,7 @@ CREATE TABLE tbl_user (
     isSend BIT DEFAULT 0,
 );
 
--- SELECT * FROM tbl_user
+SELECT * FROM tbl_user
 
 -- DROP TABLE tbl_user
 
@@ -34,14 +34,19 @@ CREATE TABLE post (
 post_id  VARCHAR(255) PRIMARY KEY,
 UserID  VARCHAR(255),
 content VARCHAR(999) DEFAULT 'no content',
-post_date DATETIME DEFAULT GETDATE(),
-likes INT DEFAULT 0,
-comments INT DEFAULT 0,
+post_date DATETIME,
+likes INT DEFAULT 1,
+comments INT DEFAULT 1,
 FOREIGN KEY (UserID)
 REFERENCES tbl_user (UserID)
 );
 
 SELECT * from post;
+
+SELECT * from post
+WHERE UserID = '1cf7c6c9-13b9-4d6e-bae9-310377d3f4d6';
+
+
 
 DROP TABLE post;
 
@@ -91,12 +96,12 @@ DROP TABLE Friendship
 CREATE TABLE Photo (
     PhotoID VARCHAR(255) PRIMARY KEY,
     UserID VARCHAR(255),
-    PhotoURL VARCHAR(255),
+    PhotoURL VARCHAR(999),
     UploadDate DATETIME,
     FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
 );
 
--- SELECT * FROM Photo
+SELECT * FROM Photo
 
 DROP TABLE Photo
 
@@ -212,7 +217,7 @@ VALUES
     (1, 'Group 1', 'Description for Group 1', GETDATE()),
     (2, 'Group 2', 'Description for Group 2', GETDATE());
 
--- Dummy data for GroupMembers table
+-- Dummy data for GroupMembers tabl
 INSERT INTO GroupMembers (GroupID, MemberID)
 VALUES 
     (1, 1),
@@ -224,7 +229,9 @@ VALUES
 INSERT INTO Event (EventID, EventName, Description, EventDate, Location, EventPosterURL)
 VALUES 
     (1, 'Event 1', 'Description for Event 1', GETDATE(), 'Location 1', 'poster_url_1'),
-    (2, 'Event 2', 'Description for Event 2', GETDATE(), 'Location 2', 'poster_url_2');
+    (2, 'Event 2', 'Description for Event 2', GETDATE(), 'Location 2', 'poster_url_2'),
+    (3, 'Event 3',  'Description for Event 3', GETDATE(), 'Location 3', 'poster_url_3'),
+    (4, 'Event 4', 'Description for Event 24', GETDATE(), 'Location 4', 'poster_url_4');
 
 -- Dummy data for EventAttendee table
 INSERT INTO EventAttendee (EventID, AttendeeID)

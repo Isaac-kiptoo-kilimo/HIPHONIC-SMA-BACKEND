@@ -84,7 +84,10 @@ content-Type: application/json
 GET http://localhost:5000/api/posts
 
 ### Fetch a post by post id
-GET http://localhost:5000/api/posts/c9cdc0b9-7628-4d7a-85c2-c125a27388c8
+GET http://localhost:5000/api/posts/7b992330-4c33-455a-838c-be27cd8203d0
+
+### Fetch a post and user by user id 
+GET http://localhost:5000/api/posts/7b992330-4c33-455a-838c-be27cd8203d0
 
 ### Update a post by post ID
 PUT http://localhost:5000/api/posts/f81299f4-ea3d-44d8-a634-2bbf4c53cf66
@@ -190,3 +193,93 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 ### Deleting a single status
 DELETE  http://localhost:5000/api/status/delete/372cb816-52a8-4afb-8b12-37e69bd1ba2a
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+###
+GET http://localhost:5000/api/photos
+
+###
+GET http://localhost:5000/api/photos/1
+
+###
+POST  http://localhost:5000/api/photos
+Content-Type: application/json
+
+{
+    "UserID": "2",
+    "PhotoURL": "https://example.com/photo.jpg",
+    "UploadDate": "2024-02-26T12:00:00Z"
+
+}
+###
+PUT   http://localhost:5000/api/photos
+Content-Type: application/json
+
+{
+    "UserID": "2",
+    "PhotoURL": "https://example.com/photo.jpg",
+    "UploadDate": "2024-02-26T12:00:00Z"
+
+}
+###
+DELETE   http://localhost:5000/api/photos/3
+
+###
+GET   http://localhost:5000/api/events
+
+###
+DELETE  http://localhost:5000/api/events/4
+
+###
+POST  http://localhost:5000/api/event/
+Content-Type: application/json
+{ 
+ "EventName": "Event 5",
+  "Description": "Description for Event 2",
+  "EventDate": "2024-02-19T06:19:19.010Z",
+  "Location": "Location 3",
+  "EventPosterURL": "poster_url_2"
+}
+
+// COMMENT
+###
+POST http://localhost:5000/api/comments
+Content-Type: application/json
+
+{
+    "UserID": "1cf7c6c9-13b9-4d6e-bae9-310377d3f4d6" ,
+    "PostID": "7b992330-4c33-455a-838c-be27cd8203d0" ,
+    "Content": "Another one!!" 
+}
+
+### //Update a comment
+PUT http://localhost:5000/api/comments/update/b4f307bf-73af-40c2-819d-d9cd2126abb9
+Content-Type: application/json
+Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2ZkZi1hZjk4LTQ3YmMtOWFmMC04MDM0ZjZiZDNhM2QiLCJVc2VybmFtZSI6Im1hcmsiLCJFbWFpbCI6Im1hcmtAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg0MTUzNjAsImV4cCI6MTcwODU4ODE2MH0.iLvTiEsdQdpBmoohLIo8cqFQGuJ6N7eKaL6NAdLZ_4c
+
+{
+     "Content": "What a Gwan!!" 
+}
+
+### updating only the content in a comment
+PATCH http://localhost:5000/api/comments/patch/f2b02a65-0d95-495f-b427-ec2fe66468fd
+Content-Type: application/json
+Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2ZkZi1hZjk4LTQ3YmMtOWFmMC04MDM0ZjZiZDNhM2QiLCJVc2VybmFtZSI6Im1hcmsiLCJFbWFpbCI6Im1hcmtAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg0MTUzNjAsImV4cCI6MTcwODU4ODE2MH0.iLvTiEsdQdpBmoohLIo8cqFQGuJ6N7eKaL6NAdLZ_4c
+
+{
+     "Content": "Wagwan!"
+}
+
+### Fetching comments
+GET http://localhost:5000/api/comments
+Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2ZkZi1hZjk4LTQ3YmMtOWFmMC04MDM0ZjZiZDNhM2QiLCJVc2VybmFtZSI6Im1hcmsiLCJFbWFpbCI6Im1hcmtAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg0MTUzNjAsImV4cCI6MTcwODU4ODE2MH0.iLvTiEsdQdpBmoohLIo8cqFQGuJ6N7eKaL6NAdLZ_4c
+
+
+### Fetching a single comment
+GET http://localhost:5000/api/comments/single/000653ff-4660-4d1d-b1c8-06962277624a
+Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2ZkZi1hZjk4LTQ3YmMtOWFmMC04MDM0ZjZiZDNhM2QiLCJVc2VybmFtZSI6Im1hcmsiLCJFbWFpbCI6Im1hcmtAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg0MTUzNjAsImV4cCI6MTcwODU4ODE2MH0.iLvTiEsdQdpBmoohLIo8cqFQGuJ6N7eKaL6NAdLZ_4c
+
+### Deleting a single comment
+DELETE  http://localhost:5000/api/comments/delete/000653ff-4660-4d1d-b1c8-06962277624a
+Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2ZkZi1hZjk4LTQ3YmMtOWFmMC04MDM0ZjZiZDNhM2QiLCJVc2VybmFtZSI6Im1hcmsiLCJFbWFpbCI6Im1hcmtAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg0MTUzNjAsImV4cCI6MTcwODU4ODE2MH0.iLvTiEsdQdpBmoohLIo8cqFQGuJ6N7eKaL6NAdLZ_4c
+
+

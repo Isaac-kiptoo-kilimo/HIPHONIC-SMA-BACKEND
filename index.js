@@ -8,6 +8,9 @@ import postRoutes from './src/routes/postRoutes.js'
 import friendshipRouter from './src/routes/friendshipRoutes.js'
 import notificationRouter from './src/routes/notificationRoutes.js'
 import statuRouter from './src/routes/statusRoutes.js'
+import photosRouter from './src/routes/photosRoutes.js'
+import eventsRouter from './src/routes/eventsRoutes.js'
+import commentRouter from './src/routes/commentRouter.js'
 
 dotenv.config()
 
@@ -30,6 +33,9 @@ app.use('/api',notificationRouter)
 app.use('/api',statuRouter)
 
 
+app.use('/api',photosRouter)
+app.use('/api',eventsRouter)
+app.use('/api',commentRouter)
 
 
 
