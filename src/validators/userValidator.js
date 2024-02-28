@@ -38,7 +38,11 @@ export  const updateUserValidator=(updateduser)=>{
       Username: joi.string().required(),
       TagName: joi.string().required(),
       Location: joi.string().required(),
+      company_name: joi.string().required(),
+      website_link: joi.string().required(),
+      profileImage: joi.string().required(),
   })
+   
 
   return updateUserValidatorSchema.validate(updateduser);
 }
