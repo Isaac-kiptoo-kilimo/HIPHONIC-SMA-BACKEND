@@ -55,19 +55,22 @@ export const authenticateloginUserService = async (user) => {
 
 
 export const updateUserService = async (updateUser) => {
+  console.log("upadte user",updateUser);
   try {
-    const updatedUser = await poolRequest()
-      .input("UserID", sql.VarChar, updateUser.UserID)
-      .input("Username", sql.VarChar, updateUser.Username)
-      .input("TagName", sql.VarChar, updateUser.TagName)
-      .input("Location", sql.VarChar, updateUser.Location)
-      .query(
-        "UPDATE TABLE tbl_user SET Username=@Username,TagName=@TagName,Location=@Location WHERE UserID=@UserID"
-      );
-    logger.info(updatedUser);
-    return updatedUser;
+    const updatedUser=await poolRequest()
+    .input('Username', sql.VarChar,updateUser.Username)
+    .input('UserID', sql.VarChar,updateUser.UserID)
+    .input('TagName', sql.VarChar,updateUser.TagName)
+    .input('Location', sql.VarChar,updateUser.Location)
+    .input('company_name', sql.VarChar,updateUser.company_name)
+    .input('website_link', sql.VarChar,updateUser.website_link)
+    .input('profileImage', sql.VarChar,updateUser.profileImage)
+  .query(`UPDATE tbl_user  SET Username = @Username, TagName = @TagName,Location = @Location , company_name=@company_name,website_link=@website_link , profileImage=@profileImage WHERE  userID = @userID`)
+console.log("updated",updateUser);
+  return updatedUser
+  
   } catch (error) {
-    return { error: "Invalid Credentials" };
+    return error
   }
 };
 
@@ -107,12 +110,12 @@ export const getSingleUserServices=async(UserID)=>{
 }
 
 
-export const getAllUsersService = async (users) => {
+export const getAllUsersService = async () => {
   try {
     const allUsers = await poolRequest().query(`SELECT * FROM tbl_user`);
-    const { Password, ...users } = allUsers.recordset;
-    console.log("users", users);
-    return users;
+    // const { Password, ...users } = allUsers.recordset;
+    // console.log("users", users);
+    return allUsers;
   } catch (error) {
     return { error: "Invalid Credentials" };
   }
