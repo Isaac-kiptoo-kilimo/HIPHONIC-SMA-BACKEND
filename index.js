@@ -7,6 +7,7 @@ import userRouter from './src/routes/usersRoutes.js'
 import postRoutes from './src/routes/postRoutes.js'
 import photosRouter from './src/routes/photosRoutes.js'
 import eventsRouter from './src/routes/eventsRoutes.js'
+import commentRouter from './src/routes/commentRouter.js'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.use('/api',userRouter)
 app.use('/api',postRoutes)
 app.use('/api',photosRouter)
 app.use('/api',eventsRouter)
+app.use('/api',commentRouter)
 
 
 
