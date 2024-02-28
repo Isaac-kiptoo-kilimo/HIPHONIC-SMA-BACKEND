@@ -193,6 +193,10 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 ### Deleting a single status
 DELETE  http://localhost:5000/api/status/delete/372cb816-52a8-4afb-8b12-37e69bd1ba2a
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+<<<<<<< HEAD
+=======
+
+>>>>>>> 025315ed0dbd6716dcc31e69f5b267e4b20dc1bc
 
 ###
 GET http://localhost:5000/api/photos
@@ -283,3 +287,7 @@ DELETE  http://localhost:5000/api/comments/delete/000653ff-4660-4d1d-b1c8-069622
 Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2ZkZi1hZjk4LTQ3YmMtOWFmMC04MDM0ZjZiZDNhM2QiLCJVc2VybmFtZSI6Im1hcmsiLCJFbWFpbCI6Im1hcmtAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg0MTUzNjAsImV4cCI6MTcwODU4ODE2MH0.iLvTiEsdQdpBmoohLIo8cqFQGuJ6N7eKaL6NAdLZ_4c
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 025315ed0dbd6716dcc31e69f5b267e4b20dc1bc

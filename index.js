@@ -11,6 +11,10 @@ import statuRouter from './src/routes/statusRoutes.js'
 import photosRouter from './src/routes/photosRoutes.js'
 import eventsRouter from './src/routes/eventsRoutes.js'
 import commentRouter from './src/routes/commentRouter.js'
+<<<<<<< HEAD
+=======
+
+>>>>>>> 025315ed0dbd6716dcc31e69f5b267e4b20dc1bc
 
 dotenv.config()
 
@@ -28,15 +32,25 @@ app.use(cors(corsOptions));
 
 app.use('/api',userRouter)
 app.use('/api',postRoutes)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 025315ed0dbd6716dcc31e69f5b267e4b20dc1bc
 app.use('/api',friendshipRouter)
 app.use('/api',notificationRouter)
 app.use('/api',statuRouter)
-
-
 app.use('/api',photosRouter)
 app.use('/api',eventsRouter)
 app.use('/api',commentRouter)
 
+
+<<<<<<< HEAD
+app.use('/api',photosRouter)
+app.use('/api',eventsRouter)
+app.use('/api',commentRouter)
+
+=======
+>>>>>>> 025315ed0dbd6716dcc31e69f5b267e4b20dc1bc
 
 
 app.listen(PORT,()=>{
