@@ -62,6 +62,22 @@ export const getOnePostService = async (post_id) => {
   }
 };
 
+//Fetch one post by uid
+export const getOnePostByUIDService = async (UserID) => {
+  try {
+    const result = await poolRequest()
+      .input("UserID", sql.VarChar(255), UserID)
+      .query(`SELECT u.Username,u.TagName, p.content, p.post_date
+      FROM tbl_user u
+      INNER JOIN post p
+      ON u.UserID = p.UserID;
+      WHERE u.UserID = @UserID`);
+    return result.recordset;
+  } catch (error) {
+    return error;
+  }
+};
+
 // Update post
 export const updatePostService = async (post_id, postDetails) => {
   try {

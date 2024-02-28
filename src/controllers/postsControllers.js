@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import {addPostService, getAllPostsService, getOnePostService, updatePostService, deletePostService } from "../services/postServices.js";
+import {addPostService, getAllPostsService, getOnePostService, getOnePostByUIDService, updatePostService, deletePostService } from "../services/postServices.js";
 import { postValidator } from "../validators/postValidator.js";
 import { sendServerError, sendCreated, sendNotFound, sendDeleteSuccess } from "../helpers/helperFunctions.js";
 
@@ -46,7 +46,22 @@ export const getOnePost = async (req, res) => {
     if (data.length !== 0) {
       return res.status(200).json(data[0]);
     } else {
-      sendNotFound(res, "Post not found");
+      sendNotFound(res, "Poster not found");
+    }
+  } catch (error) {
+    sendServerError(res, error);
+  }
+};
+
+//getOnePostByUID
+export const getOnePostByUID = async (req, res) => {
+  try {
+    const { UserID } = req.params;
+    const data = await getOnePostByUIDService(UserID);
+    if (data.length !== 0) {
+      return res.status(200).json(data[0]);
+    } else {
+      sendNotFound(res, "Post by this user not found");
     }
   } catch (error) {
     sendServerError(res, error);
