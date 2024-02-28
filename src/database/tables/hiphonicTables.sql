@@ -83,6 +83,7 @@ CREATE TABLE Friendship (
     FOREIGN KEY (User2ID) REFERENCES tbl_user(UserID)
 );
 
+DROP TABLE Friendship
 
 
 
@@ -97,7 +98,7 @@ CREATE TABLE Photo (
 
 -- SELECT * FROM Photo
 
--- DROP TABLE Photo
+DROP TABLE Photo
 
 
 -- Create Group Table
@@ -108,6 +109,7 @@ CREATE TABLE tbl_group (
     CreatedDate DATETIME
 );
 
+DROP TABLE tbl_group
 
 
 
@@ -120,6 +122,7 @@ CREATE TABLE GroupMembers (
     FOREIGN KEY (MemberID) REFERENCES tbl_user(UserID)
 );
 
+DROP TABLE GroupMembers
 
 
 
@@ -133,6 +136,7 @@ CREATE TABLE Event (
     EventPosterURL VARCHAR(255)
 );
 
+DROP TABLE Event
 
 
 
@@ -146,6 +150,7 @@ CREATE TABLE EventAttendee (
 );
 
 
+DROP TABLE EventAttendee
 
 -- Create Message Table
 CREATE TABLE Message (
@@ -158,6 +163,17 @@ CREATE TABLE Message (
     FOREIGN KEY (ReceiverID) REFERENCES tbl_user(UserID)
 );
 
+CREATE TABLE Notifications (
+  NotificationID VARCHAR(255) PRIMARY KEY,
+  UserID VARCHAR(255),
+  message VARCHAR(255),
+  is_read BOOLEAN DEFAULT false,
+  created_at TIMESTAMP ,
+FOREIGN KEY (UserID) REFERENCES tbl_user(UserID),
+
+);
+
+DROP TABLE Message
 -- Dummy data for Post table
 INSERT INTO Post (PostID, UserID, Content, PostDate)
 VALUES 

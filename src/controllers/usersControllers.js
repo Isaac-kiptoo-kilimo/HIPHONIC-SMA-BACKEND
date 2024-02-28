@@ -10,15 +10,15 @@ import {
 } from "../services/usersServices.js";
 import {updateUserPasswordValidator, updateUserValidator, userLoginValidation, userRegistrationValidation }from "../validators/userValidator.js";
 import { v4 } from "uuid";
-import {sendServerError,sendCreated} from '../helpers/helperFunctions.js'
+import {sendServerError,sendCreated, notAuthorized} from '../helpers/helperFunctions.js'
 import bcrypt from 'bcrypt'
 
 export const getAllUsersController = async (req, res) => {
   try {
     const results = await getAllUsersService();
-    const users = results;
+    const users = results.recordset;
     console.log("users", users);
-    return res.status(200).json({ Users: users });
+    return res.status(200).json(users);
   } catch (error) {
     console.error("Error fetching all users:", error);
     return res.status(500).json("Internal server error");
@@ -79,13 +79,14 @@ export const loginUserController=async(req,res)=>{
     }
 
     const user = await authenticateloginUserService({ Email, Password });
-    console.log(user);
+
     if (user.error) {
+      console.log(user.error);
       return notAuthorized(res, user.error);
     }
 
     // Successful login
-    res.status(200).json({ user });
+    res.status(200).json({ user,message:"Logged In successfully!" });
   } catch (error) {
     return sendServerError(res, "Internal server error");
   }
@@ -94,9 +95,9 @@ export const loginUserController=async(req,res)=>{
 
 export const updateUserControllers = async (req, res) => {
   try {
-    const { Username, TagName, Location } = req.body;
+    const { Username, TagName, Location ,company_name,website_link , profileImage} = req.body;
 
-    const { UserID } = req.user;
+    const { UserID } = req.params;
     console.log("user id",UserID);
     const existingUser = await getSingleUserServices(UserID);
 
@@ -104,15 +105,24 @@ export const updateUserControllers = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }else{
 
-    const { error } = updateUserValidator({ Username, TagName, Location });
+    const { error } = updateUserValidator({ Username, TagName, Location ,company_name,website_link , profileImage});
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
+// const lowerCaseUpdatedUser={
+//   Username: Username.toLowerCase(),
+//   TagName: TagName.toLowerCase(),
+//   Location: Location.toLowerCase(),
+//   company_name,
+//   website_link,
+//   profileImage
+// }
 
-    const updatedUser = await updateUserService({ Username, TagName, Location, UserID });
+// console.log("lowerCaseUpdatedUser",lowerCaseUpdatedUser);
+    const updatedUser = await updateUserService({ Username, TagName, Location ,company_name,website_link , profileImage,UserID});
     console.log('Updated one', updatedUser);
 
-    if (updatedUser.error) {
+    if (updatedUser.error || updatedUser.rowsAffected<1) {
       return sendServerError(res, updatedUser.error);
     }
     return sendCreated(res, 'User updated successfully');

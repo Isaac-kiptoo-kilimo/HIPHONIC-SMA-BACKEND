@@ -107,7 +107,7 @@ export const createFriendshipController = async (req, res) => {
        if(results.rowsAffected>0){
         const Friendships=results.recordset
         console.log("Friends",Friendships);
-      res.status(200).json({ Friendships: Friendships });
+      res.status(200).json( Friendships );
        }else{
         return res.status(400).send({message: "No existing friendships"});
        }

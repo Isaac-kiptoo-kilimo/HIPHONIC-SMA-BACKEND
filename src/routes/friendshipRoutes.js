@@ -8,7 +8,7 @@ friendshipRouter.post('/friendships', createFriendshipController)
 friendshipRouter.get('/friendships',  getAllFriendshipsController)
 
 friendshipRouter.get('/friendships/single/:FriendshipID',  getSingleFriendshipController)
-friendshipRouter.get('/user/friendships/:User1ID', getAllUserFriendshipsController)
+friendshipRouter.get('/friendships/user/:User1ID', getAllUserFriendshipsController)
 
 // friendshipRouter.put('/friendships/update/:FriendshipID', updateFriendshipControllers)
 
