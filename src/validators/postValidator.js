@@ -5,8 +5,8 @@ export const postValidator = (post) => {
     UserID: joi.string().required(),
     content: joi.string().allow("").default("no content"),
     post_date: joi.date().iso().default(new Date()),
-    likes: joi.number().integer().default(0),
-    comments: joi.number().integer().default(0),
+    likes: joi.number().integer().default(1),
+    comments: joi.number().integer().default(1),
   });
   return postValidatorSchema.validate(post);
 };

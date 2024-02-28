@@ -34,14 +34,19 @@ CREATE TABLE post (
 post_id  VARCHAR(255) PRIMARY KEY,
 UserID  VARCHAR(255),
 content VARCHAR(999) DEFAULT 'no content',
-post_date DATETIME DEFAULT GETDATE(),
-likes INT DEFAULT 0,
-comments INT DEFAULT 0,
+post_date DATETIME,
+likes INT DEFAULT 1,
+comments INT DEFAULT 1,
 FOREIGN KEY (UserID)
 REFERENCES tbl_user (UserID)
 );
 
 SELECT * from post;
+
+SELECT * from post
+WHERE UserID = '1cf7c6c9-13b9-4d6e-bae9-310377d3f4d6';
+
+
 
 DROP TABLE post;
 

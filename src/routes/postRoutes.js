@@ -1,5 +1,5 @@
 import express from "express";
-import { addPost, getAllPosts, getOnePost, updatePost, deletePost } from "../controllers/postsControllers.js";
+import { addPost, getAllPosts, getOnePost, getOnePostByUID, updatePost, deletePost } from "../controllers/postsControllers.js";
 
 const router = express.Router();
 
@@ -11,6 +11,9 @@ router.get("/posts", getAllPosts);
 
 // Fetch one post by post ID
 router.get("/posts/:post_id", getOnePost);
+
+// Fetch a post and user by user id
+router.get("/posts/:UserID", getOnePostByUID)
 
 // Update post
 router.put("/posts/:post_id", updatePost);
