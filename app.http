@@ -7,10 +7,10 @@ Content-Type: application/json
 
 {
 
-    "Username": "titus3" ,
-    "Email": "titus3@gmail.com" ,
+    "Username": "Isaac" ,
+    "Email": "isaac@gmail.com" ,
     "Password": "123456@Tk",
-    "TagName": "@tito",
+    "TagName": "@isaac",
     "Location": "Nyeri"
 }
 
@@ -156,7 +156,7 @@ Content-Type: application/json
 {
     "UserID": "1cf7c6c9-13b9-4d6e-bae9-310377d3f4d6" ,
     "PostID": "7b992330-4c33-455a-838c-be27cd8203d0" ,
-    "Content": "Another one!!" 
+    "Content": "Backend test 2 by Lewis" 
 }
 
 ### //Update a comment
