@@ -7,29 +7,24 @@ CREATE TABLE tbl_user (
     Password VARCHAR(255) NOT NULL,
     TagName VARCHAR(50),
     Location VARCHAR(100),
+    company_name VARCHAR(100) DEFAULT 'Binford Ltd',
+    website_link VARCHAR(500) DEFAULT 'https://dribbble.com/',
+    profileImage VARCHAR(500) DEFAULT 'https://www.vecteezy.com/vector-art/2002403-man-with-beard-avatar-character-isolated-icon',
     welcomed BIT Default 0,
     isDeleted BIT DEFAULT 0,
     isSend BIT DEFAULT 0,
+    isFriend Bit DEFAULT 0,
+    isGroupMember Bit DEFAULT 0,
+    registeredDate DATETIME,
 );
+
+
 
 SELECT * FROM tbl_user
 
 -- DROP TABLE tbl_user
 
-INSERT INTO tbl_user (userID, Username, Email, Password, TagName, Location)
-VALUES
-    ('1', 'JohnDoe', 'john.doe@example.com', 'hashed_password_1', 'Explorer', 'CityA'),
-    ('2', 'AliceSmith', 'alice.smith@example.com', 'hashed_password_2', 'Adventurer', 'CityB'),
-    ('3', 'BobJohnson', 'bob.johnson@example.com', 'hashed_password_3', 'Traveler', 'CityC'),
-    ('4', 'EvaWilliams', 'eva.williams@example.com', 'hashed_password_4', 'Foodie', 'CityD'),
-    ('5', 'ChrisBrown', 'chris.brown@example.com', 'hashed_password_5', 'Techie', 'CityE'),
-    ('6', 'OliviaJones', 'olivia.jones@example.com', 'hashed_password_6', 'Gamer', 'CityF'),
-    ('7', 'DavidMiller', 'david.miller@example.com', 'hashed_password_7', 'Artist', 'CityG'),
-    ('8', 'SophieWilson', 'sophie.wilson@example.com', 'hashed_password_8', 'Reader', 'CityH'),
-    ('9', 'MichaelLee', 'michael.lee@example.com', 'hashed_password_9', 'Coder', 'CityI'),
-    ('10', 'EmmaDavis', 'emma.davis@example.com', 'hashed_password_10', 'Dreamer', 'CityJ');
-
--- Create Post Table
+-- Create post Table
 CREATE TABLE post (
 post_id  VARCHAR(255) PRIMARY KEY,
 UserID  VARCHAR(255),
@@ -41,31 +36,19 @@ FOREIGN KEY (UserID)
 REFERENCES tbl_user (UserID)
 );
 
-SELECT * from post;
+-- Create comment Table
 
-SELECT * from post
-WHERE UserID = '1cf7c6c9-13b9-4d6e-bae9-310377d3f4d6';
-
-
-
-DROP TABLE post;
-
--- Create Comment Table
 CREATE TABLE Comment (
     CommentID VARCHAR(255) PRIMARY KEY,
     PostID VARCHAR(255),
     UserID VARCHAR(255),
-    CommentDate DATETIME,
-    Content VARCHAR(999),
-    FOREIGN KEY (PostID) REFERENCES Post(PostID),
-    FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
+    CommentDate DATETIME DEFAULT GETDATE(),
+    Content VARCHAR(999)
+    FOREIGN KEY (UserID) REFERENCES tbl_user (UserID),
+    FOREIGN KEY (PostID) REFERENCES post(Post_id)
 );
 
-DROP TABLE Comment;
-
-
-
--- Create Comment Table
+-- Create Like Table
 CREATE TABLE tbl_like (
     LikeID VARCHAR(255) PRIMARY KEY,
     PostID VARCHAR(255),
@@ -130,7 +113,6 @@ CREATE TABLE GroupMembers (
 DROP TABLE GroupMembers
 
 
-
 -- Create Event Table
 CREATE TABLE Event (
     EventID VARCHAR(255) PRIMARY KEY,
@@ -142,7 +124,6 @@ CREATE TABLE Event (
 );
 
 DROP TABLE Event
-
 
 
 -- Create EventAttendee Table
@@ -168,17 +149,52 @@ CREATE TABLE Message (
     FOREIGN KEY (ReceiverID) REFERENCES tbl_user(UserID)
 );
 
-CREATE TABLE Notifications (
-  NotificationID VARCHAR(255) PRIMARY KEY,
-  UserID VARCHAR(255),
-  message VARCHAR(255),
-  is_read BOOLEAN DEFAULT false,
-  created_at TIMESTAMP ,
-FOREIGN KEY (UserID) REFERENCES tbl_user(UserID),
 
+CREATE TABLE Notifications (
+  NotificationID INT IDENTITY(1,1) PRIMARY KEY,
+  UserID VARCHAR(255) REFERENCES tbl_user(UserID),
+  message VARCHAR(255),
+  is_read BIT DEFAULT 0,
+  created_at DATETIME DEFAULT GETDATE()
 );
 
+CREATE TABLE Status (
+  StatusID VARCHAR(255) PRIMARY KEY,
+  UserID VARCHAR(255) REFERENCES tbl_user(UserID),
+  StatusText VARCHAR(255),
+  ImagePath VARCHAR(255),
+  CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+
+
+
 DROP TABLE Message
+
+
+-- Trigger for creating notifications after a friendship is inserted
+GO
+
+CREATE TRIGGER trgAfterInsertFriendship
+ON Friendship
+AFTER INSERT
+AS
+BEGIN
+  DECLARE @User1ID VARCHAR(255), @User2ID VARCHAR(255);
+
+  SELECT @User1ID = User1ID, @User2ID = User2ID
+  FROM inserted;
+
+  INSERT INTO Notifications (UserID, message)
+  VALUES (@User1ID, 'You are now friends with ' + CAST(@User2ID AS NVARCHAR(10)));
+
+  INSERT INTO Notifications (UserID, message)
+  VALUES (@User2ID, 'You are now friends with ' + CAST(@User1ID AS NVARCHAR(10)));
+END;
+
+
+
+
 -- Dummy data for Post table
 INSERT INTO Post (PostID, UserID, Content, PostDate)
 VALUES 
