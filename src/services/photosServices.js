@@ -1,45 +1,57 @@
 import { poolRequest, sql } from "../utils/dbConnect.js";
 
-export const getPhotoService = async () => {
-    try {
-        const result = await poolRequest().query(`SELECT * FROM Photo`);
-        return result.recordset;
-    } catch (error) {
-        throw error;
-    }
-};
-
-export const createPhotoService = async (newPhoto) => {
-    const { PhotoID, UserID, PhotoURL, UploadDate } = newPhoto;
+export const getPhotoService = async (UserID) => {
     try {
         const result = await poolRequest()
-            .input("PhotoID", sql.VarChar, PhotoID)
-            .input("UserID", sql.VarChar, UserID)
-            .input("PhotoURL", sql.VarChar, PhotoURL)
-            .input("UploadDate", sql.DateTime, UploadDate)
-            .query(
-                "INSERT INTO Photo (PhotoID, UserID, PhotoURL, UploadDate) VALUES (@PhotoID, @UserID, @PhotoURL, @UploadDate)"
-            );
-            console.log("result",result);
+        .input("UserID", sql.VarChar, UserID)
+        .query(`SELECT * FROM Photo WHERE UserID=@UserID`);
+        
         return result;
     } catch (error) {
-        console.error("Error occurred while creating photo:", error);
-        throw new Error("Failed to create photo. Please try again later.");
-    }
-};
-
-
-export const getPhotoByIdService = async (photoId) => {
-    try {
-        const result = await poolRequest()
-            .input('PhotoID', sql.Int, photoId)
-            .query(`SELECT * FROM Photo WHERE PHOTOID = @photoID`);
-
-        return result.recordset[0];
-    } catch (error) {
         throw error;
     }
 };
+
+
+export const createPhotoService = async (newPhoto) => {
+    try {
+        
+        
+    const checkPhotoQuery = `
+        SELECT COUNT(*) AS count
+        FROM Photo
+        WHERE PhotoID = @PhotoID
+      `;
+  
+      const checkPhotoResult = await poolRequest()
+        .input("PhotoID", sql.VarChar, newPhoto.PhotoID)
+        .query(checkPhotoQuery);
+  
+      if (checkPhotoResult.recordset[0].count > 0) {
+        throw new Error('The photo already exists, please choose another one');
+      }
+  
+      
+      const addPhotoQuery = `
+        INSERT INTO Photo (PhotoID, UserID, PhotoURL, UploadDate)
+        VALUES (@PhotoID, @UserID, @PhotoURL, @UploadDate)
+      `;
+  
+      const result = await poolRequest()
+        .input("PhotoID", sql.VarChar, newPhoto.PhotoID)
+        .input("UserID", sql.VarChar, newPhoto.UserID)
+        .input("PhotoURL", sql.VarChar, newPhoto.PhotoURL)
+        .input("UploadDate", sql.DateTime, newPhoto.UploadDate)
+        .query(addPhotoQuery);
+  
+      return result;
+    } catch (error) {
+      return { message: error.message };
+    }
+  };
+
+
+  
 
 export const deletePhotoService = async (photoId) => {
     try {

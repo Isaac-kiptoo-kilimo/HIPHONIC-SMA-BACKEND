@@ -56,6 +56,17 @@ export const updateContentService = async (updateContent) => {
   }
 };
 
+// Fetching a comment by postID
+export const getPostCommentServices = async (PostID) => {
+  const postComment = await poolRequest()
+    .input("PostID", sql.VarChar, PostID)
+    .query("SELECT * FROM Comment WHERE PostID = @PostID ");
+  console.log("postComment", postComment.recordset);
+  // console.log("post id", PostID);
+  return postComment.recordset;
+};
+
+// Fetching a comment by CommentID
 export const getSingleCommentServices = async (CommentID) => {
   const singleComment = await poolRequest()
     .input("CommentID", sql.VarChar, CommentID)
