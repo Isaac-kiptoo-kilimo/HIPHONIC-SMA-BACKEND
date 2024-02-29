@@ -36,6 +36,18 @@ FOREIGN KEY (UserID)
 REFERENCES tbl_user (UserID)
 );
 
+-- Create post Table [Drop and change your table to this one]
+CREATE TABLE post (
+post_id  VARCHAR(255) PRIMARY KEY,
+UserID  VARCHAR(255),
+content VARCHAR(999) DEFAULT 'no content',
+post_date DATETIME DEFAULT GETDATE(),
+likes INT DEFAULT 1,
+comments INT DEFAULT 1,
+FOREIGN KEY (UserID)
+REFERENCES tbl_user (UserID)
+);
+
 -- Create comment Table
 
 CREATE TABLE Comment (
