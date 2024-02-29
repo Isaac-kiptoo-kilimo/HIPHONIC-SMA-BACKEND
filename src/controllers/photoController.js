@@ -1,45 +1,53 @@
 import { sendBadRequest, sendNotFound, sendCreated, sendServerError } from "../helpers/helperFunctions.js";
-import { getPhotoService, createPhotoService, getPhotoByIdService, deletePhotoService, updatePhotoService } from '../services/photosServices.js';
+import { getPhotoService, createPhotoService, deletePhotoService, updatePhotoService } from '../services/photosServices.js';
 import { photoValidator } from '../validators/photoValidator.js';
 import {v4} from 'uuid'
 
 export const getPhotos = async (req, res) => {
     try {
-        const data = await getPhotoService();
-        if (data.length === 0) {
-            return sendNotFound(res, 'Photos not found');
+        const {UserID}=req.params
+        const data = await getPhotoService(UserID);
+        console.log("data",data);
+        
+        if (data.recordset) {
+            return res.status(200).json(data.recordset);
+           
         } else {
-            return res.status(200).json(data);
+            return sendNotFound(res, 'Photos not found');
         }
     } catch (error) {
-        console.error(error);
-        return sendServerError(res, 'Server error');
+     
+        sendServerError(res, 'Server error');
     }
 }
+
 
 export const createPhoto = async (req, res) => {
     try {
         const { UserID, PhotoURL } = req.body;
-        const PhotoID=v4()
-        const UploadDate=new Date()
 
+    
+        if (!UserID || !PhotoURL) {
+            return sendBadRequest(res, 'UserID and PhotoURL are required.');
+        }
+
+    
+        const PhotoID = v4();
+
+        const UploadDate = new Date();
         const newPhoto = {
             PhotoID,
-            UserID,
+            UserID, 
             PhotoURL,
             UploadDate
         };
 
-        const { error } = photoValidator({ UserID, PhotoURL, UploadDate });
-        if (error) {
-            return sendBadRequest(res, error.details[0].message);
-        }else{
-            const response = await createPhotoService(newPhoto);
-        if (response instanceof Error) {
-            return sendServerError(res, 'Failed to create photo. Please try again later.');
-        } else {
+        const response = await createPhotoService(newPhoto);
+
+        if (response) {
             return sendCreated(res, 'Photo created successfully');
-        }
+        } else {
+            return sendServerError(res, 'Failed to create photo. Please try again later.');
         }
     } catch (error) {
         console.error(error);
@@ -47,20 +55,7 @@ export const createPhoto = async (req, res) => {
     }
 };
 
-export const getPhotoById = async (req, res) => {
-    try {
-        const photoId = req.params.id;
-        const data = await getPhotoByIdService(photoId);
-        if (!data) {
-            return sendNotFound(res, 'Photo not found');
-        } else {
-            return res.status(200).json(data);
-        }
-    } catch (error) {
-        console.error(error);
-        return sendServerError(res, 'Server error');
-    }
-};
+
 
 export const deletePhoto = async (req, res) => {
     try {
@@ -106,4 +101,3 @@ export const updatePhoto = async (req, res) => {
         return sendServerError(res, 'Server error');
     }
 };
-
