@@ -12,6 +12,7 @@ export const addPost = async (req, res) => {
   } else {
     try {
       const post_id = v4();
+      const post_date = new Date();
       const newPost = { post_id, UserID, content, post_date, likes, comments };
       const response = await addPostService(newPost);
       if (response.message) {

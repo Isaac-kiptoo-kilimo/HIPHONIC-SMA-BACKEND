@@ -1,6 +1,6 @@
 import {v4} from 'uuid'
 import { notAuthorized, sendCreated, sendDeleteSuccess, sendServerError} from "../helpers/helperFunctions.js"
-import { createCommentService, deleteCommentServices, getAllCommentsService, getSingleCommentServices, updateCommentService, updateContentService } from '../services/commentService.js';
+import { createCommentService, deleteCommentServices, getAllCommentsService, getSingleCommentServices, getPostCommentServices, updateCommentService, updateContentService } from '../services/commentService.js';
 import { createCommentValidator, updateCommentValidator, updateContentValidator } from '../validators/commentValidator.js';
 
 
@@ -85,6 +85,19 @@ export const createCommentController = async (req, res) => {
       
       console.log('single',singleComment); 
       res.status(200).json({ comment: singleComment });
+
+    } catch (error) {
+      return error
+    }
+  }
+
+  export const getPostCommentController = async(req, res) => {
+    try {
+      const {PostID} = req.params
+      const postComment = await getPostCommentServices(PostID)
+
+      console.log('postComment', postComment);
+      res.status(200).json({ comment: postComment });
 
     } catch (error) {
       return error
