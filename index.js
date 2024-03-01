@@ -11,11 +11,13 @@ import statuRouter from './src/routes/statusRoutes.js'
 import photosRouter from './src/routes/photosRoutes.js'
 import eventsRouter from './src/routes/eventsRoutes.js'
 import commentRouter from './src/routes/commentRouter.js'
+import eventAtendeeRouter from './src/routes/EventAtendee.js'
 import likesRouter from './src/routes/likesRouter.js'
 import messageRouter from './src/routes/messageRoutes.js'
 import groupMemberRouter from './src/routes/groupMembersRoutes.js'
 import groupRouter from './src/routes/groupRoutes.js'
 import groupPostRouter from './src/routes/groupPostRoutes.js'
+
 
 dotenv.config()
 
@@ -39,9 +41,8 @@ app.use('/api',statuRouter)
 app.use('/api',photosRouter)
 app.use('/api',eventsRouter)
 app.use('/api',commentRouter)
-
+app.use ('/api',eventAtendeeRouter)
 app.use('/api',likesRouter)
-
 app.use('/api',messageRouter)
 app.use('/api',groupMemberRouter)
 app.use('/api',groupRouter)

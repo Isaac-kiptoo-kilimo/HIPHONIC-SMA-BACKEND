@@ -102,7 +102,16 @@ SELECT * FROM Photo
 
 DROP TABLE Photo
 
+CREATE  TABLE PhotoComments(
+    CommentID VARCHAR(255),
+    PhotoID VARCHAR(255),
+    UserID VARCHAR(255),
+   
+    Content VARCHAR(999)
 
+);
+
+select * from PhotoComments
 -- Create Group Table
 CREATE TABLE tbl_group (
     GroupID VARCHAR(255) PRIMARY KEY,
@@ -134,8 +143,10 @@ CREATE TABLE Event (
     Description TEXT,
     EventDate VARCHAR(100),
     Location VARCHAR(100),
-    EventPosterURL VARCHAR(255)
+    EventPosterURL VARCHAR(999)
 );
+
+SELECT * TABLE  Events
 
 DROP TABLE Event
 

@@ -1,25 +1,14 @@
-import { sendBadRequest, sendNotFound, sendCreated, sendServerError } from "../helpers/helperFunctions.js";
-import { getEventService, createEventService, getEventByIdService, deleteEventService } from '../services/eventService.js';
+import { v4 } from 'uuid';
+import { sendCreated, sendServerError, sendNotFound, sendBadRequest } from "../helpers/helperFunctions.js";
+import { createEventService, deleteEventService, getEventByIdService, getEventService } from '../services/eventService.js';
 import { eventValidator } from '../validators/eventValidator.js';
 
-export const getEvents = async (req, res) => {
-    try {
-        const data = await getEventService();
-        if (data.length === 0) {
-            return sendNotFound(res, 'Events not found');
-        } else {
-            return res.status(200).json(data);
-        }
-    } catch (error) {
-        console.error(error);
-        return sendServerError(res, 'Server error');
-    }
-}
-
-export const createEvent = async (req, res) => {
+export const createEventController = async (req, res) => {
     try {
         const { EventName, Description, EventDate, Location, EventPosterURL } = req.body;
+        const eventID = v4();
         const newEvent = {
+            EventID: eventID,
             EventName,
             Description,
             EventDate,
@@ -27,39 +16,68 @@ export const createEvent = async (req, res) => {
             EventPosterURL
         };
 
-        const { error } = eventValidator(newEvent);
-        if (error) {
-            return sendBadRequest(res, 'Validation error in the data input', error);
-        }
+        // const { error } = eventValidator(newEvent);
+        // if (error) {
+        //     return sendBadRequest(res, 'Validation error in the data input', error);
+        // }
 
-        const response = await createEventService(newEvent);
-        if (response instanceof Error) {
-            return sendServerError(res, 'Failed to create event. Please try again later.');
+        const result = await createEventService(newEvent);
+
+        if (result.message) {
+            sendServerError(res, result.message);
         } else {
-            return sendCreated(res, 'Event created successfully');
+            sendCreated(res, 'Event created successfully');
         }
     } catch (error) {
-        console.error(error);
-        return sendServerError(res, 'Server error');
+        sendServerError(res, 'Server error');
     }
 };
 
-export const getEventById = async (req, res) => {
+// export const updateEventController = async (req, res) => {
+//     try {
+//         const { EventName, Description, EventDate, Location, EventPosterURL } = req.body;
+//         const { EventID } = req.params;
+
+//         const updatedEvent = await updateEventService({ EventID, EventName, Description, EventDate, Location, EventPosterURL });
+
+//         if (updatedEvent.error) {
+//             return sendServerError(res, updatedEvent.error);
+//         }
+
+//         return sendCreated(res, 'Event updated successfully');
+//     } catch (error) {
+//         return sendServerError(res, 'Internal server error');
+//     }
+// };
+
+export const getSingleEventController = async (req, res) => {
     try {
         const eventId = req.params.id;
-        const data = await getEventByIdService(eventId);
-        if (!data) {
+        const event = await getEventByIdService(eventId);
+        if (!event) {
             return sendNotFound(res, 'Event not found');
         } else {
-            return res.status(200).json(data);
+            res.status(200).json(event);
         }
     } catch (error) {
-        console.error(error);
-        return sendServerError(res, 'Server error');
+        sendServerError(res, 'Server error');
     }
 };
 
-export const deleteEvent = async (req, res) => {
+export const getAllEventsController = async (req, res) => {
+    try {
+        const events = await getEventService();
+        if (events.length === 0) {
+            return sendNotFound(res, 'Events not found');
+        } else {
+            res.status(200).json(events);
+        }
+    } catch (error) {
+        sendServerError(res, 'Server error');
+    }
+};
+
+export const deleteEventController = async (req, res) => {
     try {
         const eventId = req.params.id;
         const event = await getEventByIdService(eventId);
@@ -70,7 +88,6 @@ export const deleteEvent = async (req, res) => {
             return res.status(204).send();
         }
     } catch (error) {
-        console.error(error);
-        return sendServerError(res, 'Server error');
+        sendServerError(res, 'Server error');
     }
 };

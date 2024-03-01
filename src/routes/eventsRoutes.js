@@ -1,12 +1,17 @@
-import { Router } from "express";
-import { getEvents, getEventById, createEvent, deleteEvent } from "../controllers/eventsController.js";
+import { Router } from 'express';
+import { createEventController, deleteEventController, getAllEventsController, getSingleEventController } from '../controllers/eventsController.js';
 
 const eventRouter = Router();
 
+eventRouter.post('/events', createEventController);
 
-eventRouter.get('/events', getEvents);
-eventRouter.get('/events/:id', getEventById);
-eventRouter.post('/events', createEvent);
-eventRouter.delete('/events/:id', deleteEvent);
+eventRouter.get('/events', getAllEventsController);
+
+eventRouter.get('/events/single/:EventID', getSingleEventController);
+
+// eventRouter.put('/events/update/:EventID', updateEventController);
+
+eventRouter.delete('/events/delete/:EventID', deleteEventController);
 
 export default eventRouter;
+

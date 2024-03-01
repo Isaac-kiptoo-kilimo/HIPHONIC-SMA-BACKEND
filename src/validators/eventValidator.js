@@ -2,7 +2,6 @@ import Joi from 'joi';
 
 export const eventValidator = (event) => {
     const eventValidatorSchema = Joi.object({
-        
         EventName: Joi.string().required(),
         Description: Joi.string().required(),
         EventDate: Joi.date().iso().required(),
