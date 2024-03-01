@@ -69,15 +69,15 @@ content-Type: application/json
 # {
   # "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
   # "content": "This is a new post by Mike.",
-  # "likes": 18,
+  # "likes": 18,e
   # "comments": 10
 # }
 
 {
-  "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
-  "content": "This is a new post 2 by Mike.",
-  "likes": 18,
-  "comments": 10
+  "UserID": "4aa6e9c8-e461-47b2-bb77-dc955093b3d8",
+  "content": "Testing likes functionality",
+  "PhotoURL": "testing",
+  "VideoURL":"Testing"
 }
 
 ### Fetch all posts
@@ -95,9 +95,7 @@ Content-Type: application/json
 
 {
   "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
-  "content": "This is an updated post by Jane.",
-  "likes": 15,
-  "comments": 7
+  "content": "This is an updated post by Jane."
 }
 
 ### Delete a post by post ID
@@ -245,9 +243,9 @@ POST http://localhost:5000/api/comments
 Content-Type: application/json
 
 {
-    "UserID": "1cf7c6c9-13b9-4d6e-bae9-310377d3f4d6" ,
-    "PostID": "7b992330-4c33-455a-838c-be27cd8203d0" ,
-    "Content": "Another one!!" 
+    "UserID": "4aa6e9c8-e461-47b2-bb77-dc955093b3d8" ,
+    "PostID": "5f3064b9-ef9a-4648-98c3-7743196ad48d" ,
+    "Content": "Endfoint" 
 }
 
 ### //Update a comment
@@ -296,3 +294,24 @@ POST  http://localhost:5000/api/photocomments
 
 ###
 GET  http://localhost:5000/api/photocomments/7b992330-4c33-455a-838c-be27cd8203d0
+
+### Create a like
+POST  http://localhost:5000/api/likes 
+Content-Type: application/json
+
+{   
+    "UserID": "4aa6e9c8-e461-47b2-bb77-dc955093b3d8" ,
+    "post_id": "5f3064b9-ef9a-4648-98c3-7743196ad48d"
+}
+
+### Get all likes 
+###
+GET http://localhost:5000/api/likes
+
+
+### Get a like by postid
+GET http://localhost:5000/api/likes/pid/
+
+//Get a like by userID
+###
+GET http://localhost:5000/api/likes/uid/
