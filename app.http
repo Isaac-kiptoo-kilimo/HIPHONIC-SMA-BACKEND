@@ -223,20 +223,29 @@ Content-Type: application/json
 DELETE   http://localhost:5000/api/photos/3
 
 ###
-GET   http://localhost:5000/api/events
+GET   http://localhost:5000/api/events/
 
 ###
 DELETE  http://localhost:5000/api/events/4
 
 ###
-POST  http://localhost:5000/api/event/
+POST  http://localhost:5000/api/events/
 Content-Type: application/json
+
 { 
- "EventName": "Event 5",
-  "Description": "Description for Event 2",
+ "EventName": "Event 10",
+  "Description": "Description for Event 10",
   "EventDate": "2024-02-19T06:19:19.010Z",
-  "Location": "Location 3",
-  "EventPosterURL": "poster_url_2"
+  "Location": "Location 5",
+  "EventPosterURL": "https://s3-alpha-sig.figma.com/img/ab8d/acb0/633924ee90b73f7060bb71aee35f8d27?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=hZuWnwOyAkfwGreH1zsGgqRkQw-rU2lWnEj8yLpmfb3jrzy9jYlLtCQ1k-pT64SwArYS3QQArhgEDXlCqfvy~XpF5DQYmccBoCv~aVyCtDk9Qd5X1XBdaP9k2CcVxkvmero03W8S0NyHZI8Tt25hibV3j~KeKt2GTDJM6-YQzS-sdH3a~L30g3jQPhd7ZmakSDDQR8M3lgxGyyvqSZwFrogI1gMfA-9NJSWrm3rkeQt~Ux1f4xxbYMPcAXbuTr3McX59RFiQvBagekXg3GsUYoOmYZNR3nhK5L~B5Xeq6mwkNCacyUu80l~VmIBO9WFwNPCnBXnAFxl5H~igA74aCQ__"
+}
+###
+POST http://localhost:5000/api/eventAtendee
+Content-Type: application/json
+
+{
+    "EventID": "5c443e9b-b95d-4f2a-bd11-87dbadf6b15c" ,
+    "AtendeeID": "8ba62fcc-d41a-4e0f-9af9-917f0a288143" 
 }
 
 // COMMENT

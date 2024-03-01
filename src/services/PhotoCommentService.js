@@ -8,7 +8,7 @@ dotenv.config();
 export const createPhotoCommentService = async (comment) => {
   try {
     const result = await poolRequest()
-      .input("CommentID", sql.VarChar, comment.commentID)
+      .input("CommentID", sql.VarChar, comment.CommentID)
       .input("UserID", sql.VarChar, comment.UserID)
       .input("PhotoID", sql.VarChar, comment.PhotoID)
       .input("Content", sql.VarChar, comment.Content)

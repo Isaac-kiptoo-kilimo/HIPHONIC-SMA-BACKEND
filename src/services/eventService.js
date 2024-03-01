@@ -1,41 +1,52 @@
 import { poolRequest, sql } from "../utils/dbConnect.js";
 
-export const getEventService = async () => {
+export const createEventService = async (event) => {
     try {
-        const result = await poolRequest().query(`SELECT * FROM Event`);
-        return result.recordset;
+        const result = await poolRequest()
+            .input('EventID', sql.VarChar, event.EventID)
+            .input('EventName', sql.VarChar, event.EventName)
+            .input('Description', sql.VarChar, event.Description)
+            .input('EventDate', sql.DateTime, event.EventDate)
+            .input('Location', sql.VarChar, event.Location)
+            .input('EventPosterURL', sql.VarChar, event.EventPosterURL)
+            .query('INSERT INTO Event (EventID, EventName, Description, EventDate, Location, EventPosterURL) VALUES (@EventID, @EventName, @Description, @EventDate, @Location, @EventPosterURL)');
+        return result;
     } catch (error) {
         throw error;
     }
 };
 
-export const createEventService = async (newEvent) => {
-    const { EventName, Description, EventDate, Location, EventPosterURL } = newEvent;
-    try {
-        const result = await poolRequest()
-            .input("EventName", sql.VarChar, EventName)
-            .input("Description", sql.VarChar, Description)
-            .input("EventDate", sql.DateTime, EventDate)
-            .input("Location", sql.VarChar, Location)
-            .input("EventPosterURL", sql.VarChar, EventPosterURL)
-            .query(
-                "INSERT INTO Event (EventName, Description, EventDate, Location, EventPosterURL) VALUES (@EventName, @Description, @EventDate, @Location, @EventPosterURL)"
-            );
-
-        return result;
-    } catch (error) {
-        console.error("Error occurred while creating event:", error);
-        throw new Error("Failed to create event. Please try again later.");
-    }
-};
+// export const updateEventService = async (updateEvent) => {
+//     try {
+//         const result = await poolRequest()
+//             .input('EventID', sql.VarChar, updateEvent.EventID)
+//             .input('EventName', sql.VarChar, updateEvent.EventName)
+//             .input('Description', sql.VarChar, updateEvent.Description)
+//             .input('EventDate', sql.DateTime, updateEvent.EventDate)
+//             .input('Location', sql.VarChar, updateEvent.Location)
+//             .input('EventPosterURL', sql.VarChar, updateEvent.EventPosterURL)
+//             .query(`UPDATE Event SET EventName = @EventName, Description = @Description, EventDate = @EventDate, Location = @Location, EventPosterURL = @EventPosterURL WHERE EventID = @EventID`);
+//         return result;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
 
 export const getEventByIdService = async (eventId) => {
     try {
         const result = await poolRequest()
-            .input('EventID', sql.Int, eventId)
-            .query(`SELECT * FROM Event WHERE EventID = @EventID`);
-
+            .input('EventID', sql.VarChar, eventId)
+            .query('SELECT * FROM Event WHERE EventID = @EventID');
         return result.recordset[0];
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getEventService = async () => {
+    try {
+        const result = await poolRequest().query('SELECT * FROM Event');
+        return result.recordset;
     } catch (error) {
         throw error;
     }
@@ -44,8 +55,8 @@ export const getEventByIdService = async (eventId) => {
 export const deleteEventService = async (eventId) => {
     try {
         await poolRequest()
-            .input('EventID', sql.Int, eventId)
-            .query(`DELETE FROM Event WHERE EventID = @EventID`);
+            .input('EventID', sql.VarChar, eventId)
+            .query('DELETE FROM Event WHERE EventID = @EventID');
     } catch (error) {
         throw error;
     }
