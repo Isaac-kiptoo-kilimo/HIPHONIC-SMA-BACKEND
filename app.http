@@ -69,15 +69,15 @@ content-Type: application/json
 # {
   # "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
   # "content": "This is a new post by Mike.",
-  # "likes": 18,
+  # "likes": 18,e
   # "comments": 10
 # }
 
 {
-  "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
-  "content": "This is a new post 2 by Mike.",
-  "likes": 18,
-  "comments": 10
+  "UserID": "4aa6e9c8-e461-47b2-bb77-dc955093b3d8",
+  "content": "Testing likes functionality",
+  "PhotoURL": "testing",
+  "VideoURL":"Testing"
 }
 
 ### Fetch all posts
@@ -95,9 +95,7 @@ Content-Type: application/json
 
 {
   "UserID": "c9cdc0b9-7628-4d7a-85c2-c125a27388c8",
-  "content": "This is an updated post by Jane.",
-  "likes": 15,
-  "comments": 7
+  "content": "This is an updated post by Jane."
 }
 
 ### Delete a post by post ID
@@ -255,9 +253,9 @@ POST http://localhost:5000/api/comments
 Content-Type: application/json
 
 {
-    "UserID": "1cf7c6c9-13b9-4d6e-bae9-310377d3f4d6" ,
-    "PostID": "7b992330-4c33-455a-838c-be27cd8203d0" ,
-    "Content": "Another one!!" 
+    "UserID": "4aa6e9c8-e461-47b2-bb77-dc955093b3d8" ,
+    "PostID": "5f3064b9-ef9a-4648-98c3-7743196ad48d" ,
+    "Content": "Endfoint" 
 }
 
 ### //Update a comment
@@ -422,6 +420,32 @@ POST  http://localhost:5000/api/photocomments
 
 ###
 GET  http://localhost:5000/api/photocomments/7b992330-4c33-455a-838c-be27cd8203d0
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+### Create a like
+POST  http://localhost:5000/api/likes 
+Content-Type: application/json
+
+{   
+    "UserID": "4aa6e9c8-e461-47b2-bb77-dc955093b3d8" ,
+    "post_id": "5f3064b9-ef9a-4648-98c3-7743196ad48d"
+}
+
+### Get all likes 
+###
+GET http://localhost:5000/api/likes
+
+
+### Get a like by postid
+GET http://localhost:5000/api/likes/pid/
+
+//Get a like by userID
+###
+GET http://localhost:5000/api/likes/uid/
+=======
+>>>>>>> f46bc4a13b956d422969d7ca00211e97ee05871f
+=======
 
 #  GroupID,description,activity_photo,UploadedByID
 
@@ -447,3 +471,4 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 ### Fetching/getting all groups
 GET http://localhost:5000/api/groupposts/
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+

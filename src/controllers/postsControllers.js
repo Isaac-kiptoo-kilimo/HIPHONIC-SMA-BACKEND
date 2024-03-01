@@ -1,19 +1,19 @@
 import { v4 } from "uuid";
-import {addPostService, getAllPostsService, getOnePostService, getOnePostByUIDService, updatePostService, deletePostService } from "../services/postServices.js";
+import {addPostService, getAllPostsService, getOnePostService, getOnePhotoPostService, getOneVideoPostService, getOnePostByUIDService, updatePostService, deletePostService } from "../services/postServices.js";
 import { postValidator } from "../validators/postValidator.js";
 import { sendServerError, sendCreated, sendNotFound, sendDeleteSuccess } from "../helpers/helperFunctions.js";
 
 //Create a new post
 export const addPost = async (req, res) => {
-  const { UserID, content, post_date, likes, comments } = req.body;
-  const { error } = postValidator({ UserID, content, post_date, likes, comments });
+  const { UserID, content, imageUrl, videoUrl, post_date } = req.body;
+  const { error } = postValidator({ UserID, content, post_date });
   if (error) {
     return sendServerError(res, error.message);
   } else {
     try {
       const post_id = v4();
       const post_date = new Date();
-      const newPost = { post_id, UserID, content, post_date, likes, comments };
+      const newPost = { post_id, UserID, content, imageUrl, videoUrl, post_date };
       const response = await addPostService(newPost);
       if (response.message) {
         sendServerError(res, response.message);
@@ -26,6 +26,7 @@ export const addPost = async (req, res) => {
   }
 };
 
+////////////////////////////////////////////////
 // Fetch all posts
 export const getAllPosts = async (req, res) => {
   try {
@@ -44,6 +45,36 @@ export const getOnePost = async (req, res) => {
   try {
     const { post_id } = req.params;
     const data = await getOnePostService(post_id);
+    if (data.length !== 0) {
+      return res.status(200).json(data[0]);
+    } else {
+      sendNotFound(res, "Poster not found");
+    }
+  } catch (error) {
+    sendServerError(res, error);
+  }
+};
+
+//Fetch a one photo post
+export const getOnePhotoPost = async (req, res) => {
+  try {
+    const { post_id } = req.params;
+    const data = await getOnePhotoPostService(post_id);
+    if (data.length !== 0) {
+      return res.status(200).json(data[0]);
+    } else {
+      sendNotFound(res, "Poster not found");
+    }
+  } catch (error) {
+    sendServerError(res, error);
+  }
+};
+
+//Fetch a one video post
+export const getOneVideoPost = async (req, res) => {
+  try {
+    const { post_id } = req.params;
+    const data = await getOneVideoPostService(post_id);
     if (data.length !== 0) {
       return res.status(200).json(data[0]);
     } else {
