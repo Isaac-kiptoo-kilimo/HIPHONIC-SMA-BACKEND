@@ -80,6 +80,7 @@ export const getAllGroupMembersService=async(GroupID)=>{
       JOIN tbl_user ON GroupMembers.MemberID = tbl_user.UserID
       WHERE GroupMembers.GroupID = @GroupID  
         `)
+        console.log();
         return allGroupMembers
     } catch (error) {
         return error

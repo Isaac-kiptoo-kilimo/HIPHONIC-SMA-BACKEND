@@ -1,22 +1,29 @@
 import {v4} from 'uuid'
 import { notAuthorized, sendCreated, sendDeleteSuccess, sendServerError} from "../helpers/helperFunctions.js"
+import { createGroupActivityService, getAllGroupsActivityService } from '../services/groupPostService.js';
+import { createGroupActivityValidator } from '../validators/groupActivityValidators.js';
 
-export const createGroupPostController = async (req, res) => {
+export const createGroupActivityController = async (req, res) => {
     try {
-      
-      const { GroupName,Description,group_image,CreatedByID } = req.body;
+      // GroupActivityID
+// GroupID 
+// description 
+// activity_photo
+// UploadedByID 
+// CreatedDate
+      const { GroupID,description,activity_photo,UploadedByID } = req.body;
       console.log(req.body);
-
-      const GroupID = v4();
-      const { error } = createGroupPostValidator({ GroupName,Description,group_image });
+      createGroupActivityValidator
+      const GroupActivityID = v4();
+      const { error } = createGroupActivityValidator({ GroupID,description,activity_photo,UploadedByID });
       console.log("error",error);
       if (error) {
         return res.status(400).send(error.details[0].message);
       } else {
         const CreatedDate = new Date();    
-        const createdGroup = { GroupID,GroupName,CreatedByID,Description,group_image,CreatedDate};
+        const createdGroup = { GroupActivityID,GroupID,description,activity_photo,UploadedByID,CreatedDate};
   
-        const result = await createGroupPostService(createdGroup);
+        const result = await createGroupActivityService(createdGroup);
   
         if (result.message) {
           sendServerError(res, result.message)
@@ -95,10 +102,10 @@ export const createGroupPostController = async (req, res) => {
 
   export const getAllGroupPostController = async (req, res) => {
     try {
-      const results = await getAllGroupPostService()
-        const groups=results.recordset
-        console.log(groups);
-      res.status(200).json( groups);
+      const results = await getAllGroupsActivityService()
+        const groupsActivity=results.recordset
+        console.log(groupsActivity);
+      res.status(200).json( groupsActivity);
     } catch (error) {
       console.error("Error fetching all group:", error);
       res.status(500).json("Internal server error");
