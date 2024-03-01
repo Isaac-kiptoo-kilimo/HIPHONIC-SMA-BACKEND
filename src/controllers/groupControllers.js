@@ -86,7 +86,7 @@ export const createGroupController = async (req, res) => {
       const singleGroup=await getSingleGroupServices(GroupID)
       
       console.log('single',singleGroup); 
-      res.status(200).json({ Group: singleGroup });
+      res.status(200).json(singleGroup );
 
     } catch (error) {
       return error

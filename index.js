@@ -14,6 +14,7 @@ import commentRouter from './src/routes/commentRouter.js'
 import messageRouter from './src/routes/messageRoutes.js'
 import groupMemberRouter from './src/routes/groupMembersRoutes.js'
 import groupRouter from './src/routes/groupRoutes.js'
+import groupPostRouter from './src/routes/groupPostRoutes.js'
 
 dotenv.config()
 
@@ -40,6 +41,7 @@ app.use('/api',commentRouter)
 app.use('/api',messageRouter)
 app.use('/api',groupMemberRouter)
 app.use('/api',groupRouter)
+app.use('/api',groupPostRouter)
 
 
 

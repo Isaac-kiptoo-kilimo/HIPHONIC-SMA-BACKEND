@@ -6,17 +6,17 @@ import {poolRequest,sql} from '../utils/dbConnect.js'
 dotenv.config();
 
 // creating group service
-export const createGroupService=async(group)=>{
+export const createGroupActivityService=async(group)=>{
   
   try {
     const result=await poolRequest()
+    .input('GroupActivityID', sql.VarChar,group.GroupActivityID )
     .input('GroupID', sql.VarChar,group.GroupID )
-    .input('CreatedByID', sql.VarChar,group.CreatedByID )
-    .input('GroupName', sql.VarChar,group.GroupName)
-    .input('Description', sql.VarChar,group.Description)
-    .input('group_image', sql.VarChar,group.group_image)
+    .input('UploadedByID', sql.VarChar,group.UploadedByID )
+    .input('description', sql.VarChar,group.description)
+    .input('activity_photo', sql.VarChar,group.activity_photo)
     .input('CreatedDate', sql.DateTime,group.CreatedDate)
-    .query('INSERT INTO tbl_group (GroupID,CreatedByID,GroupName,Description,group_image,CreatedDate) VALUES(@GroupID,@CreatedByID,@GroupName,@Description,@group_image,@CreatedDate)')
+    .query('INSERT INTO GroupActivity (GroupActivityID,GroupID,UploadedByID,description,activity_photo,CreatedDate) VALUES(@GroupActivityID,@GroupID,@UploadedByID,@description,@activity_photo,@CreatedDate)')
     console.log('results',result);
     return result;
 
@@ -25,6 +25,12 @@ export const createGroupService=async(group)=>{
   }
 };
 
+// GroupActivityID
+// GroupID 
+// description 
+// activity_photo
+// UploadedByID 
+// CreatedDate
 
 // updating group details based on the id
 
@@ -72,13 +78,13 @@ export const getSingleGroupServices=async(GroupID)=>{
 
 
 // Fetching all available groups in the database
-export const getAllGroupsService=async()=>{
+export const getAllGroupsActivityService=async()=>{
     try {
-        const allGroups=await poolRequest().query(`SELECT tbl_group.*, tbl_user.*
-        FROM GroupMembers
-        INNER JOIN tbl_group ON GroupMembers.GroupID = tbl_group.GroupID
-        INNER JOIN tbl_user ON GroupMembers.MemberID = tbl_user.UserID`)
-        return allGroups
+        const allGroupsActivity=await poolRequest().query(`SELECT GroupActivity.*, tbl_user.*
+        FROM GroupActivity
+        INNER JOIN tbl_group ON GroupActivity.GroupID = tbl_group.GroupID
+        INNER JOIN tbl_user ON GroupActivity.UploadedByID = tbl_user.UserID`)
+        return allGroupsActivity
     } catch (error) {
         return error
     }
