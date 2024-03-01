@@ -362,7 +362,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 
 
 ### Fetching/getting single group
-GET http://localhost:5000/api/groups/single/77b1ee5e-f71e-42ba-9be8-7c03e64aa33e
+GET http://localhost:5000/api/groups/single/304d4c65-8b07-42b8-9ef5-a073b4ac49a9
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
 ### Deleting a single group
@@ -388,7 +388,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 
 
 ### Fetching/getting all groupsmembers based on the groupid
-GET http://localhost:5000/api/members/012d0417-015d-4f75-b67f-cac9e84bd190
+GET http://localhost:5000/api/members/1af048b9-7b4e-4f3a-90ee-d3feffd14cb0
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
 
@@ -411,6 +411,7 @@ POST  http://localhost:5000/api/photocomments
 
 ###
 GET  http://localhost:5000/api/photocomments/7b992330-4c33-455a-838c-be27cd8203d0
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 ### Create a like
@@ -435,3 +436,30 @@ GET http://localhost:5000/api/likes/pid/
 GET http://localhost:5000/api/likes/uid/
 =======
 >>>>>>> f46bc4a13b956d422969d7ca00211e97ee05871f
+=======
+
+#  GroupID,description,activity_photo,UploadedByID
+
+
+ 
+##****************************************************Single GROUP**************************************************************##
+
+### create a group
+POST http://localhost:5000/api/groupposts/
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+{
+    "GroupID": "304d4c65-8b07-42b8-9ef5-a073b4ac49a9" ,
+    "UploadedByID": "2f5ed619-d30c-4b37-9016-8ab1807ab145" ,
+    "description": "This is one of the best groups", 
+    "activity_photo": "https://cdn.pixabay.com/photo/2014/08/14/10/38/software-417880_1280.jpg" 
+}
+
+
+
+
+### Fetching/getting all groups
+GET http://localhost:5000/api/groupposts/
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+

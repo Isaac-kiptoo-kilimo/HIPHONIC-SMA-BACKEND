@@ -87,6 +87,7 @@ export const createGroupMembersController = async (req, res) => {
       const {GroupID}=req.params
       const results = await getAllGroupMembersService(GroupID)
         const groupMembers=results.recordset
+        console.log("groupMembers",groupMembers);
       res.status(200).json( groupMembers );
     } catch (error) {
       console.error("Error fetching all group Members:", error);
