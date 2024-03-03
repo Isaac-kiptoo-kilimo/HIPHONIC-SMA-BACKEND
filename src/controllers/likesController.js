@@ -1,7 +1,7 @@
 import { v4 } from "uuid";
-import { addLikeService, getAllLikesService, getOneLikeByPIdService, getOneLikeByUIdService } from "../services/likesService.js";
+import { addLikeService, getAllLikesService, getOneLikeByPIdService, getOneLikeByUIdService, deleteLikeService } from "../services/likesService.js";
 import { likesValidator } from "../validators/likesValidator.js";
-import { sendNotFound, sendServerError, sendCreated, sendBadRequest } from "../helpers/helperFunctions.js";
+import { sendNotFound, sendServerError, sendCreated, sendBadRequest, sendDeleteSuccess } from "../helpers/helperFunctions.js";
 
 // New like controller
 export const addLike = async (req, res) => {
@@ -37,7 +37,7 @@ export const getAllLikes = async (req, res) => {
     try {
         const data = await getAllLikesService();
         if (!data.recordset) {
-            return sendNotFound(res, "No posts found");
+            return sendNotFound(res, "No likes found");
           }
         return res.status(200).json(data.recordset);
     } catch (error) {
@@ -74,3 +74,16 @@ export const getOneLikeByUId = async (req, res) => {
         sendServerError(res, error)
     }
 };
+
+//deleting likes by user id
+export const deleteLike = async (req, res) => {
+    try {
+        const { UserID} = req.params;
+        const response = await deleteLikeService (UserID);
+        if (response.rowsAffected == 1) {
+            sendDeleteSuccess(res, "Unliked");
+        }
+    } catch (error) {
+        sendServerError(res, error);
+    }
+}

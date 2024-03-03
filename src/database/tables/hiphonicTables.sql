@@ -23,7 +23,6 @@ CREATE TABLE tbl_user (
 SELECT * FROM tbl_user
 
 -- DROP TABLE tbl_user
-
 -- Create post Table
 CREATE TABLE post (
 post_id  VARCHAR(255) PRIMARY KEY,
@@ -55,6 +54,7 @@ CREATE TABLE tbl_like (
     CommentID VARCHAR(255),
     post_id VARCHAR(255),
     UserID VARCHAR(255),
+    like_date DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (post_id) REFERENCES Post(post_id),
     FOREIGN KEY (UserID) REFERENCES tbl_user(UserID),
     FOREIGN KEY (CommentID) REFERENCES Comment (CommentID)
@@ -122,8 +122,6 @@ CREATE TABLE tbl_group (
 
 DROP TABLE tbl_group
 
-
-
 -- Create GroupMembers Table
 CREATE TABLE GroupMembers (
     GroupID VARCHAR(255),
@@ -146,7 +144,7 @@ CREATE TABLE Event (
     EventPosterURL VARCHAR(999)
 );
 
-SELECT * TABLE  Events
+SELECT * FROM  Events
 
 DROP TABLE Event
 
@@ -191,8 +189,31 @@ CREATE TABLE Status (
   CreatedAt DATETIME DEFAULT GETDATE()
 );
 
+-- //////////////////////////////////////////////////////////////////////
+-- Create Post Table
+CREATE TABLE post (
+post_id  VARCHAR(255) PRIMARY KEY,
+UserID  VARCHAR(255),
+content VARCHAR(999) DEFAULT 'no content',
+imageUrl VARCHAR(999),
+videoUrl VARCHAR(400),
+post_date DATETIME DEFAULT GETDATE(),
+FOREIGN KEY (UserID) REFERENCES tbl_user (UserID),
+);
 
+-- Create Video Table
+CREATE TABLE Video (
+    videoID VARCHAR(255) PRIMARY KEY,
+    UserID VARCHAR(255),
+    videoURL VARCHAR(999),
+    videoCaption VARCHAR(999) DEFAULT 'no content',
+    UploadDate DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
+);
 
+drop table Video;
+
+-- //////////////////////////////////////////////////////////////////////
 
 DROP TABLE Message
 

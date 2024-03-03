@@ -17,6 +17,7 @@ import messageRouter from './src/routes/messageRoutes.js'
 import groupMemberRouter from './src/routes/groupMembersRoutes.js'
 import groupRouter from './src/routes/groupRoutes.js'
 import groupPostRouter from './src/routes/groupPostRoutes.js'
+import videoRoutes from './src/routes/videoRoutes.js'
 
 
 dotenv.config()
@@ -47,9 +48,7 @@ app.use('/api',messageRouter)
 app.use('/api',groupMemberRouter)
 app.use('/api',groupRouter)
 app.use('/api',groupPostRouter)
-
-
-
+app.use('/api', videoRoutes)
 
 app.listen(PORT,()=>{
     console.log(`This app is running on port ${PORT}`);
