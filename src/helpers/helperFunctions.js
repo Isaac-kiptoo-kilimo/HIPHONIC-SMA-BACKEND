@@ -1,11 +1,9 @@
-
-
 export const successMessage=(res,message)=>{
     res.status(200).json({message:message})
 }
 
 export const validationError=(res,message)=>{
-    res.status(400).json({message:message})
+    res.status(400).send(message.details[0].message)
 }
 
 
@@ -19,7 +17,10 @@ export const sendBadRequest = (res, message) => {
 export const sendNotFound = (res, message) => {
     return res.status(404).json({ message: message });
 }
-
+export const sendClientError = (res, message) => {
+    res.status(400).json({ error: true, message });
+  };
+  
 export const sendCreated = (res, message) => {
     return res.status(201).json({ message: message });
 }
