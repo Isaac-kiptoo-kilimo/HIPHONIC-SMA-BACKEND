@@ -86,8 +86,8 @@ GET http://localhost:5000/api/posts
 ### Fetch a post by post id
 GET http://localhost:5000/api/posts/7b992330-4c33-455a-838c-be27cd8203d0
 
-### Fetch a post and user by user id 
-GET http://localhost:5000/api/posts/7b992330-4c33-455a-838c-be27cd8203d0
+### Fetch a post and user by user id ///
+GET http://localhost:5000/api/posts/uid/bc881a99-5608-4955-87c4-a25a91ca380b
 
 ### Update a post by post ID
 PUT http://localhost:5000/api/posts/f81299f4-ea3d-44d8-a634-2bbf4c53cf66
@@ -420,16 +420,15 @@ POST  http://localhost:5000/api/photocomments
 
 ###
 GET  http://localhost:5000/api/photocomments/7b992330-4c33-455a-838c-be27cd8203d0
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 ### Create a like
 POST  http://localhost:5000/api/likes 
 Content-Type: application/json
 
 {   
-    "UserID": "4aa6e9c8-e461-47b2-bb77-dc955093b3d8" ,
-    "post_id": "5f3064b9-ef9a-4648-98c3-7743196ad48d"
+    "UserID": "bc881a99-5608-4955-87c4-a25a91ca380b" ,
+    "post_id": "020426ff-16e5-440c-8755-19e5e83d5960"
 }
 
 ### Get all likes 
@@ -442,10 +441,13 @@ GET http://localhost:5000/api/likes/pid/
 
 //Get a like by userID
 ###
-GET http://localhost:5000/api/likes/uid/
-=======
->>>>>>> f46bc4a13b956d422969d7ca00211e97ee05871f
-=======
+GET http://localhost:5000/api/likes/uid/bc881a99-5608-4955-87c4-a25a91ca380b
+
+//Delete a like by
+###
+DELETE  http://localhost:5000/api/likes/bc881a99-5608-4955-87c4-a25a91ca380b
+
+
 
 #  GroupID,description,activity_photo,UploadedByID
 
@@ -472,3 +474,29 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 GET http://localhost:5000/api/groupposts/
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
+//Videos crud endpoints
+### 
+POST http://localhost:5000/api/video
+content-Type: application/json
+
+{
+  "UserID": "bc881a99-5608-4955-87c4-a25a91ca380b",
+  "videoURL": "Testing videos functionality",
+  "videoCaption": "testing"
+}
+
+//Fetch all videos
+###
+GET http://localhost:5000/api/video
+
+//Fetch video by vid
+###
+GET http://localhost:5000/api/video/vid/3a7c2a36-80dd-4639-b3ed-8505a34b4293
+
+//Fetch video by uid
+###
+GET http://localhost:5000/api/video/uid/bc881a99-5608-4955-87c4-a25a91ca380b
+
+//Delete video by vid
+###
+DELETE  http://localhost:5000/api/video/vid/22bf5e47-f7a2-4ac0-b2e3-408cbb2ead41

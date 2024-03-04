@@ -92,11 +92,7 @@ export const getOnePostByUIDService = async (UserID) => {
   try {
     const result = await poolRequest()
       .input("UserID", sql.VarChar(255), UserID)
-      .query(`SELECT u.Username,u.TagName, p.content, p.post_date
-      FROM tbl_user u
-      INNER JOIN post p
-      ON u.UserID = p.UserID;
-      WHERE u.UserID = @UserID`);
+      .query(`SELECT * FROM post WHERE UserID = @UserID`);
     return result.recordset;
   } catch (error) {
     return error;
@@ -121,6 +117,7 @@ export const updatePostService = async (post_id, postDetails) => {
     return error;
   }
 };
+
 // Delete post
 export const deletePostService = async (post_id) => {
   try {
