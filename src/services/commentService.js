@@ -18,11 +18,11 @@ export const createCommentService = async (comment) => {
     console.log("results", result);
     return result;
   } catch (error) {
-    return error;
+    return error.message;
   }
 };
 
-// updating Comment details based on the id
+// updating Comment details based on the id 
 
 export const updateCommentService = async (updateComment) => {
   try {

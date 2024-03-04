@@ -21,16 +21,16 @@ export const addPostService = async (newPost) => {
 
     // If the post_id is UniqueIdentifier, the post will be added
     const addPostQuery = `
-    INSERT INTO post (post_id, UserID, content, post_date, likes, comments)
-    VALUES (@post_id, @UserID, @content, @post_date, @likes, @comments)
+    INSERT INTO post (post_id, UserID, content, imageUrl, videoUrl, post_date)
+    VALUES (@post_id, @UserID, @content, @imageUrl, @videoUrl, @post_date)
     `;
     const result = await poolRequest()
       .input("post_id", sql.VarChar, newPost.post_id)
       .input("UserID", sql.VarChar, newPost.UserID)
       .input("content", sql.VarChar, newPost.content)
+      .input("imageUrl", sql.VarChar, newPost.imageUrl)
+      .input("videoUrl", sql.VarChar, newPost.videoUrl)
       .input("post_date", sql.DateTime, newPost.post_date)
-      .input("likes", sql.Int, newPost.likes)
-      .input("comments", sql.Int, newPost.comments)
       .query(addPostQuery);
 
     return result;
@@ -39,6 +39,7 @@ export const addPostService = async (newPost) => {
   }
 };
 
+////////////////////////////////////////////////////
 // Fetch all posts
 export const getAllPostsService = async () => {
   try {
@@ -62,16 +63,36 @@ export const getOnePostService = async (post_id) => {
   }
 };
 
+//Fetch a one photo post
+export const getOnePhotoPostService = async (post_id) => {
+  try {
+    const result = await poolRequest()
+      .input("post_id", sql.VarChar(300), post_id)
+      .query(`SELECT post_id, UserID, content, imageUrl, post_date FROM post WHERE post_id=@post_id`);
+    return result.recordset;
+  } catch (error) {
+    return error;
+  }
+};
+
+//Fetch a one video post
+export const getOneVideoPostService = async (post_id) => {
+  try {
+    const result = await poolRequest()
+      .input("post_id", sql.VarChar(300), post_id)
+      .query(`SELECT post_id, UserID, content, videoUrl, post_date FROM post WHERE post_id=@post_id`);
+    return result.recordset;
+  } catch (error) {
+    return error;
+  }
+};
+
 //Fetch one post by uid
 export const getOnePostByUIDService = async (UserID) => {
   try {
     const result = await poolRequest()
       .input("UserID", sql.VarChar(255), UserID)
-      .query(`SELECT u.Username,u.TagName, p.content, p.post_date
-      FROM tbl_user u
-      INNER JOIN post p
-      ON u.UserID = p.UserID;
-      WHERE u.UserID = @UserID`);
+      .query(`SELECT * FROM post WHERE UserID = @UserID`);
     return result.recordset;
   } catch (error) {
     return error;
@@ -96,6 +117,7 @@ export const updatePostService = async (post_id, postDetails) => {
     return error;
   }
 };
+
 // Delete post
 export const deletePostService = async (post_id) => {
   try {

@@ -23,27 +23,12 @@ CREATE TABLE tbl_user (
 SELECT * FROM tbl_user
 
 -- DROP TABLE tbl_user
-
 -- Create post Table
 CREATE TABLE post (
 post_id  VARCHAR(255) PRIMARY KEY,
 UserID  VARCHAR(255),
 content VARCHAR(999) DEFAULT 'no content',
 post_date DATETIME,
-likes INT DEFAULT 1,
-comments INT DEFAULT 1,
-FOREIGN KEY (UserID)
-REFERENCES tbl_user (UserID)
-);
-
-alter table  Post  ADD videoUrl VARCHAR (999)
-
--- Create post Table [Drop and change your table to this one]
-CREATE TABLE post (
-post_id  VARCHAR(255) PRIMARY KEY,
-UserID  VARCHAR(255),
-content VARCHAR(999) DEFAULT 'no content',
-post_date DATETIME DEFAULT GETDATE(),
 likes INT DEFAULT 1,
 comments INT DEFAULT 1,
 FOREIGN KEY (UserID)
@@ -62,16 +47,31 @@ CREATE TABLE Comment (
     FOREIGN KEY (PostID) REFERENCES post(Post_id)
 );
 
+--////////////////////////////////////////////////////////////////////
 -- Create Like Table
 CREATE TABLE tbl_like (
     LikeID VARCHAR(255) PRIMARY KEY,
-    PostID VARCHAR(255),
+    CommentID VARCHAR(255),
+    post_id VARCHAR(255),
     UserID VARCHAR(255),
-    FOREIGN KEY (PostID) REFERENCES Post(PostID),
-    FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
+    like_date DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (post_id) REFERENCES Post(post_id),
+    FOREIGN KEY (UserID) REFERENCES tbl_user(UserID),
+    FOREIGN KEY (CommentID) REFERENCES Comment (CommentID)
 );
 
-DROP TABLE tbl_like;
+-- Create post Table [Drop and change your table to this one] added photo url and video url
+--///////////////////////////////////////////////////////////////////////////
+CREATE TABLE post (
+post_id  VARCHAR(255) PRIMARY KEY,
+UserID  VARCHAR(255),
+content VARCHAR(999) DEFAULT 'no content',
+imageUrl VARCHAR(999),
+videoUrl VARCHAR(999),
+post_date DATETIME DEFAULT GETDATE(),
+FOREIGN KEY (UserID) REFERENCES tbl_user (UserID),
+);
+
 
 
 -- Create Friendship Table
@@ -123,8 +123,6 @@ CREATE TABLE tbl_group (
 );
 
 DROP TABLE tbl_group
-
-
 
 -- Create GroupMembers Table
 CREATE TABLE GroupMembers (
@@ -197,8 +195,31 @@ CREATE TABLE Status (
   CreatedAt DATETIME DEFAULT GETDATE()
 );
 
+-- //////////////////////////////////////////////////////////////////////
+-- Create Post Table
+CREATE TABLE post (
+post_id  VARCHAR(255) PRIMARY KEY,
+UserID  VARCHAR(255),
+content VARCHAR(999) DEFAULT 'no content',
+imageUrl VARCHAR(999),
+videoUrl VARCHAR(400),
+post_date DATETIME DEFAULT GETDATE(),
+FOREIGN KEY (UserID) REFERENCES tbl_user (UserID),
+);
 
+-- Create Video Table
+CREATE TABLE Video (
+    videoID VARCHAR(255) PRIMARY KEY,
+    UserID VARCHAR(255),
+    videoURL VARCHAR(999),
+    videoCaption VARCHAR(999) DEFAULT 'no content',
+    UploadDate DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (UserID) REFERENCES tbl_user(UserID)
+);
 
+drop table Video;
+
+-- //////////////////////////////////////////////////////////////////////
 
 DROP TABLE Message
 
