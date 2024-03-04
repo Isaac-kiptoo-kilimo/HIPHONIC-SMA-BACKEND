@@ -11,7 +11,7 @@ export const createEventController = async (req, res) => {
             EventID: eventID,
             EventName,
             Description,
-            EventDate,
+            EventDate, 
             Location,
             EventPosterURL
         };
