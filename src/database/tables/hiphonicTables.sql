@@ -36,6 +36,8 @@ FOREIGN KEY (UserID)
 REFERENCES tbl_user (UserID)
 );
 
+alter table  Post  ADD videoUrl VARCHAR (999)
+
 -- Create post Table [Drop and change your table to this one]
 CREATE TABLE post (
 post_id  VARCHAR(255) PRIMARY KEY,
@@ -109,6 +111,8 @@ CREATE  TABLE PhotoComments(
 
 );
 
+DROP TABLE PhotoComments
+
 select * from PhotoComments
 -- Create Group Table
 CREATE TABLE tbl_group (
@@ -131,6 +135,8 @@ CREATE TABLE GroupMembers (
     FOREIGN KEY (MemberID) REFERENCES tbl_user(UserID)
 );
 
+SELECT * FROM GroupMembers
+
 DROP TABLE GroupMembers
 
 
@@ -144,7 +150,7 @@ CREATE TABLE Event (
     EventPosterURL VARCHAR(999)
 );
 
-SELECT * TABLE  Events
+SELECT * FROM Event
 
 DROP TABLE Event
 
@@ -158,6 +164,7 @@ CREATE TABLE EventAttendee (
     FOREIGN KEY (AttendeeID) REFERENCES tbl_user(UserID)
 );
 
+SELECT *FROM EventAttendee
 
 DROP TABLE EventAttendee
 
@@ -180,7 +187,8 @@ CREATE TABLE Notifications (
   is_read BIT DEFAULT 0,
   created_at DATETIME DEFAULT GETDATE()
 );
-
+SELECT *
+FROM Notifications;
 CREATE TABLE Status (
   StatusID VARCHAR(255) PRIMARY KEY,
   UserID VARCHAR(255) REFERENCES tbl_user(UserID),

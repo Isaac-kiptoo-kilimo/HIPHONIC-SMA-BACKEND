@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
 import { poolRequest, sql } from '../utils/dbConnect.js';
-
-dotenv.config();
 
 // Create event attendee service
 export const createEventAttendeeService = async (eventAttendee) => {
@@ -32,7 +29,7 @@ export const getSingleEventAttendeeService = async (EventID, AttendeeID) => {
 };
 
 // Check existing event attendee
-export const checkExistingEventAttendeeService = async (EventID, AttendeeID) => {
+export const checkExistingEventAttendee = async (EventID, AttendeeID) => {
     try {
         const existingEventAttendee = await poolRequest()
             .input('EventID', sql.VarChar, EventID)
@@ -68,6 +65,21 @@ export const deleteEventAttendeeService = async (EventID, AttendeeID) => {
             .query('DELETE FROM EventAttendee WHERE EventID = @EventID AND AttendeeID = @AttendeeID');
         console.log('deleted event attendee', deletedEventAttendee.recordset);
         return deletedEventAttendee.recordset;
+    } catch (error) {
+        return error;
+    }
+};
+
+// Fetch all event attendees for a specific event
+export const getAllEventAttendeesForEventService = async (EventID) => {
+    try {
+        const allEventAttendeesForEvent = await poolRequest()
+            .input('EventID', sql.VarChar, EventID)
+            .query(`SELECT EventAttendee.*, tbl_user.*
+                     FROM EventAttendee
+                     JOIN tbl_user ON EventAttendee.AttendeeID = tbl_user.UserID
+                     WHERE EventAttendee.EventID = @EventID`);
+        return allEventAttendeesForEvent;
     } catch (error) {
         return error;
     }

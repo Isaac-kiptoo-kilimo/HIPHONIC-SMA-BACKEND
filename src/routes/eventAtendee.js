@@ -1,13 +1,12 @@
 import { Router } from 'express';
-import { createEventAttendeeController, getAllEventAttendeesController, deleteEventAttendeeController } from '../controllers/eventAtendeeController.js';
+import { createEventAttendeeController, getAllEventAttendeesController, deleteEventAttendeeController, getAllEventAttendeesForEventController } from '../controllers/eventAtendeecontroller.js';
 
-const eventAtendeeRouter = Router();
+const eventAttendeeRouter = Router();
 
+eventAttendeeRouter.post('/eventattendee', createEventAttendeeController);
+eventAttendeeRouter.get('/eventattendee/:EventID', getAllEventAttendeesController);
+eventAttendeeRouter.delete('/eventattendee/delete/:EventID/:AttendeeID', deleteEventAttendeeController);
+eventAttendeeRouter.get('/event/:EventID/attendees', getAllEventAttendeesForEventController);
 
-eventAtendeeRouter.post('/eventatendees', createEventAttendeeController);
-eventAtendeeRouter.get('/eventatendees/:EventID', getAllEventAttendeesController);
-// eventAtendeeRouter.get('/eventatendees/single/:id', getSingleEventAttendeeController);
-eventAtendeeRouter.delete('/eventatendees/delete/:id', deleteEventAttendeeController);
-
-export default eventAtendeeRouter;
+export default eventAttendeeRouter;
 

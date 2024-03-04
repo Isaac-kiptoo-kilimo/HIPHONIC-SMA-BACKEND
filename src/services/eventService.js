@@ -10,6 +10,7 @@ export const createEventService = async (event) => {
             .input('Location', sql.VarChar, event.Location)
             .input('EventPosterURL', sql.VarChar, event.EventPosterURL)
             .query('INSERT INTO Event (EventID, EventName, Description, EventDate, Location, EventPosterURL) VALUES (@EventID, @EventName, @Description, @EventDate, @Location, @EventPosterURL)');
+            console.log("result",result);
         return result;
     } catch (error) {
         throw error;
@@ -57,6 +58,17 @@ export const deleteEventService = async (eventId) => {
         await poolRequest()
             .input('EventID', sql.VarChar, eventId)
             .query('DELETE FROM Event WHERE EventID = @EventID');
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getEventsByAttendeeIDService = async (userId) => {
+    try {
+        const result = await poolRequest()
+            .input('UserID', sql.VarChar, userId)
+            .query('SELECT * FROM Event WHERE AttendeeID = @UserID'); // Assuming there's a UserID column in your Event table
+        return result.recordset;
     } catch (error) {
         throw error;
     }

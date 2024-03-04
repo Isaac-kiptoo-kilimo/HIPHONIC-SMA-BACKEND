@@ -196,7 +196,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 
 
 ###
-GET http://localhost:5000/api/photos/ee5d34e9-5333-41e8-95fd-1353a7bda7d5
+GET http://localhost:5000/api/photos/b284f639-9006-42fa-9d74-6d27466fd075
 ###
 GET http://localhost:5000/api/photos/8ba62fcc-d41a-4e0f-9af9-917f0a288143
 
@@ -210,6 +210,8 @@ Content-Type: application/json
     "UploadDate": "2024-02-26T12:00:00Z"
 
 }
+
+
 ###
 PUT   http://localhost:5000/api/photos
 Content-Type: application/json
@@ -223,13 +225,19 @@ Content-Type: application/json
 ###
 DELETE   http://localhost:5000/api/photos/3
 
+# getting photos by user id
 ###
-GET   http://localhost:5000/api/events/
+GET http://localhost:5400/api/photos/yours/09b49f05-6e14-4a37-a370-5959aa28c5a7
+
+ 
+###
+GET   http://localhost:5000/api/users/09b49f05-6e14-4a37-a370-5959aa28c5a7/events
 
 ###
-DELETE  http://localhost:5000/api/events/4
+DELETE  http://localhost:5000/api/events/delete/1ad7aa28-0701-4032-8c89-7c002c2691a9
 
 ###
+
 POST  http://localhost:5000/api/events/
 Content-Type: application/json
 
@@ -241,14 +249,20 @@ Content-Type: application/json
   "EventPosterURL": "https://s3-alpha-sig.figma.com/img/ab8d/acb0/633924ee90b73f7060bb71aee35f8d27?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=hZuWnwOyAkfwGreH1zsGgqRkQw-rU2lWnEj8yLpmfb3jrzy9jYlLtCQ1k-pT64SwArYS3QQArhgEDXlCqfvy~XpF5DQYmccBoCv~aVyCtDk9Qd5X1XBdaP9k2CcVxkvmero03W8S0NyHZI8Tt25hibV3j~KeKt2GTDJM6-YQzS-sdH3a~L30g3jQPhd7ZmakSDDQR8M3lgxGyyvqSZwFrogI1gMfA-9NJSWrm3rkeQt~Ux1f4xxbYMPcAXbuTr3McX59RFiQvBagekXg3GsUYoOmYZNR3nhK5L~B5Xeq6mwkNCacyUu80l~VmIBO9WFwNPCnBXnAFxl5H~igA74aCQ__"
 }
 ###
-POST http://localhost:5000/api/eventAtendee
+GET http://localhost:5000/api/eventattendee/230157d5-04f0-4569-a9df-38564422a367
+###
+POST http://localhost:5000/api/eventattendee
 Content-Type: application/json
 
 {
-    "EventID": "5c443e9b-b95d-4f2a-bd11-87dbadf6b15c" ,
-    "AtendeeID": "8ba62fcc-d41a-4e0f-9af9-917f0a288143" 
+    "EventID": "3aaa10fc-f9e8-433e-8ba7-2a9f0bbda079",
+    "AttendeeID": "09b49f05-6e14-4a37-a370-5959aa28c5a7"
 }
+###
+GET http://localhost:5000/api/event/5c443e9b-b95d-4f2a-bd11-87dbadf6b15c/attendees
 
+###
+DELETE http://localhost:5000/api/eventattendees/delete/1eec64a0-8c12-447c-b493-7e7dc5a609ac/09b49f05-6e14-4a37-a370-5959aa28c5a7
 // COMMENT
 ###
 POST http://localhost:5000/api/comments

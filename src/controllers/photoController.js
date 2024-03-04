@@ -1,5 +1,5 @@
 import { sendBadRequest, sendNotFound, sendCreated, sendServerError } from "../helpers/helperFunctions.js";
-import { getPhotoService, createPhotoService, deletePhotoService, updatePhotoService } from '../services/photosServices.js';
+import { getPhotoService, createPhotoService, deletePhotoService, updatePhotoService, getPhotosByUserIDService } from '../services/photosServices.js';
 import { photoValidator } from '../validators/photoValidator.js';
 import {v4} from 'uuid'
 
@@ -101,3 +101,18 @@ export const updatePhoto = async (req, res) => {
         return sendServerError(res, 'Server error');
     }
 };
+
+export const getPhotosByUserID = async (req, res) => {
+    try {
+      const { UserID } = req.params;
+      const photos = await getPhotosByUserIDService(UserID);
+   
+      if (photos) {
+        return res.status(200).json(photos);
+      } else {
+        return res.status(404).json({ error: "Photos not found" });
+      }
+    } catch (error) {
+      sendServerError(res, error.message);
+    }
+  };

@@ -81,3 +81,15 @@ export const updatePhotoService = async (photoId, updatedPhoto) => {
         throw new Error("Failed to update photo. Please try again later.");
     }
 };
+
+
+export const getPhotosByUserIDService = async (UserID) => {
+  try {
+    const result = await poolRequest()
+      .input("UserID", sql.VarChar(255), UserID)
+      .query("SELECT * FROM Photo WHERE UserID = @UserID");
+    return result.recordset;
+  } catch (error) {
+    throw error;
+  }
+};
