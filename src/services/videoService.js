@@ -25,3 +25,49 @@ export const addVideoService = async (newVideo) => {
         return error;
     }
 };
+
+//Fetch all the videos
+export const getAllVideoService = async () => {
+    try {
+        const result = await poolRequest().query(`SELECT * FROM Video`)
+        return result;
+    } catch (error) {
+        return error;
+    }
+};
+
+//Ferch one video by videoID
+export const getOneVideoService = async (videoID) => {
+    try {
+        const result = await poolRequest()
+        .input("videoID",sql.VarChar(255),videoID)
+        .query(`SELECT * FROM Video WHERE videoID = @videoID`);
+        return result.recordset;
+    } catch (error) {
+        return error;
+    }
+};
+
+//Ferch one video by videoID
+export const getUserVideoService = async (UserID) => {
+    try {
+        const result = await poolRequest()
+        .input("UserID",sql.VarChar(255),UserID)
+        .query(`SELECT * FROM Video WHERE UserID = @UserID`);
+        return result.recordset;
+    } catch (error) {
+        return error;
+    }
+};
+
+//Delete a video by videoID
+export const deleteVideoService = async (videoID) => {
+    try {
+        const response = await poolRequest()
+        .input("videoID", sql.VarChar(255), videoID)
+        .query("DELETE FROM Video WHERE videoID = @videoID");
+        return response;
+    } catch (error) {
+        return error
+    }
+};
