@@ -17,7 +17,11 @@ import messageRouter from './src/routes/messageRoutes.js'
 import groupMemberRouter from './src/routes/groupMembersRoutes.js'
 import groupRouter from './src/routes/groupRoutes.js'
 import groupPostRouter from './src/routes/groupPostRoutes.js'
+
 import chatRouter from './src/routes/chatMessageRoutes.js'
+
+import videoRoutes from './src/routes/videoRoutes.js'
+
 
 
 dotenv.config()
@@ -50,6 +54,9 @@ app.use('/api',groupRouter)
 app.use('/api',groupPostRouter)
 app.use('/api',chatRouter)
 
+
+
+app.use('/api', videoRoutes)
 
 
 app.listen(PORT,()=>{

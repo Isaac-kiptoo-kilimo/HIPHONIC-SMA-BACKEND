@@ -19,7 +19,7 @@ router.get("/posts/photo/:post_id",getOnePhotoPost);
 router.get("/posts/videos/:post_id",getOneVideoPost);
 
 // Fetch a post and user by user id
-router.get("/posts/:UserID", getOnePostByUID)
+router.get("/posts/uid/:UserID", getOnePostByUID)
 
 // Update post
 router.put("/posts/:post_id", updatePost);

@@ -22,7 +22,7 @@ export const addLikeService = async (newLike) => {
 // Fetch all likes
 export const getAllLikesService = async () => {
     try {
-        const result = await poolRequest().query(`SELECT * FROM tbl_like`)
+    const result = await poolRequest().query(`SELECT * FROM tbl_like`)
 
         console.log(result);
         return result;
@@ -54,3 +54,15 @@ export const getOneLikeByUIdService = async (UserID) => {
         return error;
     }
 }
+
+// Delete post
+export const deleteLikeService = async (UserID) => {
+    try {
+        const response = await poolRequest()
+        .input ("UserID", sql.VarChar(255), UserID)
+        .query("DELETE FROM tbl_like WHERE UserID=@UserID");
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
