@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {deleteUserController, getAllUsersController, getSingleUserController, loginUserController, registerNewUserController, updateUserControllers, updateUserPasswordControllers} from '../controllers/usersControllers.js'
+import {deleteUserController, getAllNonFriendUsersController, getAllUsersController, getSingleUserController, loginUserController, registerNewUserController, updateUserControllers, updateUserPasswordControllers} from '../controllers/usersControllers.js'
 import { VerifyTokenMiddleware } from '../middlewares/userAuthMiddleware.js';
 
 const userRouter=Router();
@@ -7,6 +7,7 @@ const userRouter=Router();
 userRouter.post('/users/register' , registerNewUserController )
 userRouter.post('/users/login' , loginUserController )
 userRouter.get('/users' , getAllUsersController )
+userRouter.get('/users/nonfriend' , getAllNonFriendUsersController )
 
 userRouter.get('/users/single/:UserID' , getSingleUserController)
 

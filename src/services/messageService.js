@@ -12,10 +12,10 @@ export const createMessageService=async(message)=>{
     const result=await poolRequest()
     .input('MessageID', sql.VarChar,message.MessageID  )
     .input('SenderID', sql.VarChar,message.SenderID )
-    .input('ReceiverID', sql.VarChar,message.ReceiverID )
+    .input('ChatID', sql.VarChar,message.ChatID )
     .input('Content', sql.VarChar,message.Content)
     .input('MessageDate', sql.DateTime,message.MessageDate)
-    .query('INSERT INTO Message (MessageID,SenderID,ReceiverID,Content,MessageDate) VALUES(@MessageID,@SenderID,@ReceiverID,@Content,@MessageDate)')
+    .query('INSERT INTO Message (MessageID,SenderID,ChatID,Content,MessageDate) VALUES(@MessageID,@SenderID,@ChatID,@Content,@MessageDate)')
     console.log('results',result);
     return result;
 
@@ -42,6 +42,19 @@ console.log(updateMessage);
   }
 }
 
+export const getMessageBySenderChatService=async (message)=>{
+  const existMessages=await poolRequest()
+  .input('SenderID', sql.VarChar,message.SenderID )
+  .input('ChatID', sql.VarChar,message.ChatID )
+  .query(`SELECT *
+  FROM Message
+  WHERE (SenderID = @SenderID AND ChatID = @ChatID)
+     OR (SenderID = @ChatID AND ChatID = @SenderID)
+  ORDER BY MessageDate DESC`)
+  // console.log(existMessages,"existing");
+  return existMessages
+  
+}
 
 // updating the content
 export const updateContentService=async(updateContent)=>{
@@ -58,12 +71,40 @@ export const updateContentService=async(updateContent)=>{
   }
 }
 
+// getting a user message
+export const getUserMessageServices = async (chat) => {
+  try {
+    const singleUserMessage = await poolRequest()
+      .input('SenderID', sql.VarChar, chat.UserID)
+      .input('ChatID', sql.VarChar, chat.ChatID)
+      .query('SELECT * FROM Message WHERE SenderID = @SenderID OR ChatID=@ChatID');
+
+    console.log('single message', singleUserMessage.recordset);
+    return singleUserMessage.recordset;
+  } catch (error) {
+    console.error('Error retrieving user messages:', error.message);
+    throw error; // Re-throw the error for higher-level error handling
+  }
+};
+
+
+
 // getting a single message
 export const getSingleMessageServices=async(MessageID)=>{
   const singleMessage= await poolRequest()
   .input('MessageID', sql.VarChar,MessageID)
   .query('SELECT * FROM Message WHERE MessageID = @MessageID ')
   console.log('single post',singleMessage.recordset);
+  return singleMessage.recordset;
+}
+
+// getting a single message
+
+export const getMessageByChatIDServices=async(ChatID)=>{
+  const singleMessage= await poolRequest()
+  .input('ChatID', sql.VarChar,ChatID)
+  .query('SELECT * FROM Message WHERE ChatID = @ChatID ')
+  console.log('single chat',singleMessage.recordset);
   return singleMessage.recordset;
 }
 

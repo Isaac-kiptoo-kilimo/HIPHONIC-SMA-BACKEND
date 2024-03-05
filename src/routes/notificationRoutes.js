@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getAllNotificationsController, getAllUserNotificationsController } from '../controllers/notificationsControllers.js';
+import { deleteNotificationController, getAllNotificationsController, getAllUserNotificationsController, updateNotificationsController } from '../controllers/notificationsControllers.js';
 
 const notificationRouter=Router();
 
@@ -7,6 +7,8 @@ const notificationRouter=Router();
 notificationRouter.get('/notifications', getAllNotificationsController )
 
 notificationRouter.get('/notifications/user/:UserID', getAllUserNotificationsController )
+notificationRouter.patch('/notifications/:NotificationID', updateNotificationsController )
+notificationRouter.delete('/notifications/:NotificationID/:UserID', deleteNotificationController )
 
 
 export default notificationRouter;

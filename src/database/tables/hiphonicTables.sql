@@ -161,6 +161,16 @@ CREATE TABLE EventAttendee (
 
 DROP TABLE EventAttendee
 
+CREATE TABLE post (
+post_id  VARCHAR(255) PRIMARY KEY,
+UserID  VARCHAR(255),
+content VARCHAR(999) DEFAULT 'no content',
+imageUrl VARCHAR(999),
+videoUrl VARCHAR(999),
+post_date DATETIME DEFAULT GETDATE(),
+FOREIGN KEY (UserID) REFERENCES tbl_user (UserID),
+);
+
 -- Create Message Table
 CREATE TABLE Message (
     MessageID VARCHAR(255) PRIMARY KEY,
