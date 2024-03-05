@@ -68,12 +68,15 @@ export const updateGroupNameService=async(updateGroupName)=>{
 }
 
 // get single group services
-export const getSingleGroupServices=async(GroupID)=>{
+export const getGroupActivityServices=async(GroupID)=>{
   const singleGroup= await poolRequest()
   .input('GroupID', sql.VarChar,GroupID)
-  .query('SELECT * FROM tbl_group WHERE GroupID = @GroupID ')
-  console.log('single group',singleGroup.recordset);
-  return singleGroup.recordset;
+  .query(`SELECT GroupActivity.*, tbl_user.*
+  FROM GroupActivity
+  INNER JOIN tbl_user ON GroupActivity.UploadedByID = tbl_user.UserID
+  WHERE GroupID = @GroupID` )
+  console.log('single group',singleGroup);
+  return singleGroup;
 }
 
 

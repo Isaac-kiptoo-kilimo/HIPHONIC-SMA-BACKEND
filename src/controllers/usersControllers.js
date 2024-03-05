@@ -7,6 +7,8 @@ import {
   updateUserService,
   updatePasswordService,
   deleteUserServices,
+  updateIsFriendService,
+  getAllNonFriendUsersService,
 } from "../services/usersServices.js";
 import {updateUserPasswordValidator, updateUserValidator, userLoginValidation, userRegistrationValidation }from "../validators/userValidator.js";
 import { v4 } from "uuid";
@@ -19,6 +21,19 @@ export const getAllUsersController = async (req, res) => {
     const users = results.recordset;
     console.log("users", users);
     return res.status(200).json(users);
+  } catch (error) {
+    console.error("Error fetching all users:", error);
+    return res.status(500).json("Internal server error");
+  }
+};
+
+
+export const getAllNonFriendUsersController = async (req, res) => {
+  try {
+    const results = await getAllNonFriendUsersService();
+    const nonFriendUsers = results.recordset;
+    console.log("users", nonFriendUsers);
+    return res.status(200).json(nonFriendUsers);
   } catch (error) {
     console.error("Error fetching all users:", error);
     return res.status(500).json("Internal server error");
@@ -156,6 +171,8 @@ console.log('Updated one',updatedPass);
     return sendServerError(res, 'Internal server error');
   }
 };
+
+
 
 
 export const getSingleUserController=async(req,res)=>{

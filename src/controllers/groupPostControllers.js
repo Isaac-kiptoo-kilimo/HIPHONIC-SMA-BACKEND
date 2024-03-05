@@ -1,6 +1,6 @@
 import {v4} from 'uuid'
-import { notAuthorized, sendCreated, sendDeleteSuccess, sendServerError} from "../helpers/helperFunctions.js"
-import { createGroupActivityService, getAllGroupsActivityService } from '../services/groupPostService.js';
+import { notAuthorized, orderData, sendCreated, sendDeleteSuccess, sendServerError} from "../helpers/helperFunctions.js"
+import { createGroupActivityService, getAllGroupsActivityService, getGroupActivityServices } from '../services/groupPostService.js';
 import { createGroupActivityValidator } from '../validators/groupActivityValidators.js';
 
 export const createGroupActivityController = async (req, res) => {
@@ -85,18 +85,18 @@ export const createGroupActivityController = async (req, res) => {
 //   };
   
 
-//   export const getSingleGroupController=async(req,res)=>{
-//     try {
-//       const {GroupID}=req.params
-//       const singleGroup=await getSingleGroupServices(GroupID)
-      
-//       console.log('single',singleGroup); 
-//       res.status(200).json({ Group: singleGroup });
+  export const getGroupActivityController=async(req,res)=>{
+    try {
+      const {GroupID}=req.params
+      const singleGroupActivity=await getGroupActivityServices(GroupID)
+      const result=singleGroupActivity.recordset
+      console.log('ActivityGroup',result); 
+      res.status(200).json(result);
 
-//     } catch (error) {
-//       return error
-//     }
-//   }
+    } catch (error) {
+      return error
+    }
+  }
 
 
 
@@ -105,13 +105,23 @@ export const createGroupActivityController = async (req, res) => {
       const results = await getAllGroupsActivityService()
         const groupsActivity=results.recordset
         console.log(groupsActivity);
-      res.status(200).json( groupsActivity);
+
+        if (groupsActivity.length == 0) {
+          sendNotFound(res, "No activity  found");
+        } else {
+          if (req.query.order) {
+            res.status(200).json(orderData(groupsActivity, req.query.order));
+          } else {
+            res.status(200).json(groupsActivity);
+          }
+        }
+
     } catch (error) {
-      console.error("Error fetching all group:", error);
+      console.error("Error fetching all group activity", error);
       res.status(500).json("Internal server error");
     }
   };
-  
+
 
 //   export const deleteGroupControllers=async(req,res)=>{
 //     try {

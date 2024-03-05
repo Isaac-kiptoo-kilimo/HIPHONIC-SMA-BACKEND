@@ -52,6 +52,8 @@ Content-Type: application/json
 GET http://localhost:5000/api/users
 
 
+### Fetching/getting all users
+GET http://localhost:5000/api/users/nonfriend
 ### Fetching/getting single user
 GET http://localhost:5000/api/users/single/0bb168a7-6e84-402d-b964-97cd852085a7
 
@@ -150,6 +152,16 @@ GET http://localhost:5000/api/notifications/
 ### Fetching/getting all individual user notifications
 GET http://localhost:5000/api/notifications/user/6
 
+### Fetching/getting all individual user notifications
+patch http://localhost:5000/api/notifications/12
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+{
+     "is_read": true 
+}
+### Fetching/getting all individual user notifications
+DELETE http://localhost:5000/api/notifications/1/f7548ef7-eb73-4b5b-8a58-aed672cb5ff3
 
 
 ##****************************************************STATUS**************************************************************##
@@ -298,17 +310,58 @@ Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2Z
 POST  http://localhost:5000/api/photocomments
 Content-Type: application/json
 
-##****************************************************MESSAGES**************************************************************##
+
+
+##****************************************************CHATS**************************************************************##
 
 ### create a message
-POST http://localhost:5500/api/messages
+POST http://localhost:5000/api/chats
 Content-Type: application/json
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
 {
-    "SenderID": "017e6d02-567c-42de-9feb-b58a9e7fba4a" ,
-    "ReceiverID": "ba4abf58-33e5-4901-b528-bf7bbd55ffd0" ,
-    "Content": "I am in Love with You"
+    "SenderID": "2f5ed619-d30c-4b37-9016-8ab1807ab145" ,
+    "ReceiverID": "c65b31ba-e703-425a-8ecb-dbdd11bc8e60" 
+}
+
+
+### Fetching/getting all chats
+GET http://localhost:5000/api/chats
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+### Fetching/getting all chats
+GET http://localhost:5000/api/chats/user/2f5ed619-d30c-4b37-9016-8ab1807ab145
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+
+### Fetching/getting users chats
+GET http://localhost:5000/api/chats/user/2f5ed619-d30c-4b37-9016-8ab1807ab145/c65b31ba-e703-425a-8ecb-dbdd11bc8e60
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+
+### Fetching/getting single message
+GET http://localhost:5000/api/chats/single/da549edd-471a-4e51-ad26-e534ab890ed5
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+
+
+### Deleting a single message
+DELETE  http://localhost:5000/api/chats/delete/da549edd-471a-4e51-ad26-e534ab890ed5
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV
+
+
+
+##****************************************************MESSAGES**************************************************************##
+
+### create a message
+POST http://localhost:5000/api/messages
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+{
+    "SenderID": "2f5ed619-d30c-4b37-9016-8ab1807ab145" ,
+    "ChatID": "98c261cd-1c41-4c60-98ae-6aabed5c56c6" ,
+    "Content": "will work on this"
 }
 
 ### updating a single message
@@ -323,16 +376,27 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 
 
 ### Fetching/getting all messages
-GET http://localhost:5500/api/messages
+GET http://localhost:5000/api/messages
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+### Fetching/getting all messages
+GET http://localhost:5000/api/messages/user/c65b31ba-e703-425a-8ecb-dbdd11bc8e60
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+
+### Fetching/getting users chats
+GET http://localhost:5000/api/messages/user/da549edd-471a-4e51-ad26-e534ab890ed5
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
 
 ### Fetching/getting single message
-GET http://localhost:5500/api/messages/single/288d9bb4-06d9-4ebf-a05d-09098f3af541
+GET http://localhost:5000/api/messages/single/da549edd-471a-4e51-ad26-e534ab890ed5
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
+
+
 ### Deleting a single message
-DELETE  http://localhost:5500/api/messags/delete/288d9bb4-06d9-4ebf-a05d-09098f3af541
+DELETE  http://localhost:5000/api/messages/delete/da549edd-471a-4e51-ad26-e534ab890ed5
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
 ##****************************************************GROUPS**************************************************************##
@@ -374,6 +438,8 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 GET http://localhost:5000/api/groups/
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
+### Request // order todos asc or desc
+GET http://localhost:5000/api/groups?order=desc 
 
 ### Fetching/getting single group
 GET http://localhost:5000/api/groups/single/304d4c65-8b07-42b8-9ef5-a073b4ac49a9
@@ -446,11 +512,15 @@ GET http://localhost:5000/api/likes/pid/
 
 //Get a like by userID
 ###
+
+GET http://localhost:5000/api/likes/uid/
+
 GET http://localhost:5000/api/likes/uid/bc881a99-5608-4955-87c4-a25a91ca380b
 
 //Delete a like by
 ###
 DELETE  http://localhost:5000/api/likes/bc881a99-5608-4955-87c4-a25a91ca380b
+
 
 
 
@@ -475,8 +545,12 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0
 
 
 
-### Fetching/getting all groups
-GET http://localhost:5000/api/groupposts/
+### Fetching/getting all group activity
+GET http://localhost:5000/api/groupposts?order=desc 
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
+
+### Fetching/getting single group activities
+GET http://localhost:5000/api/groupposts/304d4c65-8b07-42b8-9ef5-a073b4ac49a9
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1MjAyNzE0Yy1mYzRjLTQ2NTEtYjdiZi1hZDUzYTVkOTFlZjEiLCJQYXNzd29yZCI6IiQyYiQwOCRsLldIc0JxbDM2d1BPcklCS2d0R2wuY29vL3dRQ2IzRnNYMGdvaUpnQUE1SW1pRFVBaDc4TyIsIkVtYWlsIjoidGVjaG5vbGN5YmVyMUBnbWFpbC5jb20iLCJpYXQiOjE3MDgzNTA2NDksImV4cCI6MTcwODQzNzA0OX0.a1hyNtpi0LUGWO1pn8T73IrbgQjUgl3fltPkCbWt9XE
 
 //Videos crud endpoints
