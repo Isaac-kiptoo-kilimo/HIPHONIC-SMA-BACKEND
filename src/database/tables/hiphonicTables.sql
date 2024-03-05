@@ -229,6 +229,22 @@ CREATE TABLE Video (
 
 drop table Video;
 
+-- Create table video category
+CREATE TABLE videoCategory (
+    categoryID VARCHAR(255) PRIMARY KEY,
+    categoryName VARCHAR(255),
+	previewURL VARCHAR(999),
+    createDate DATETIME DEFAULT GETDATE(),
+)
+
+-- Create table category videos
+CREATE TABLE CategoryVideos (
+    categoryVideosID VARCHAR (255) PRIMARY KEY,
+    categoryID VARCHAR (255),
+    categoryVideoURL VARCHAR(255),
+    FOREIGN KEY (categoryID) REFERENCES videoCategory (categoryID)
+);
+
 -- //////////////////////////////////////////////////////////////////////
 
 DROP TABLE Message

@@ -287,8 +287,8 @@ Content-Type: application/json
 
 {
     "UserID": "4aa6e9c8-e461-47b2-bb77-dc955093b3d8" ,
-    "PostID": "5f3064b9-ef9a-4648-98c3-7743196ad48d" ,
-    "Content": "Endfoint" 
+    "PostID": "17d99549-5564-4efa-9d6a-d0e84e34fa69" ,
+    "Content": "lovely post" 
 }
 
 ### //Update a comment
@@ -311,6 +311,11 @@ Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2Z
 
 ### Fetching comments
 GET http://localhost:5000/api/comments
+Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2ZkZi1hZjk4LTQ3YmMtOWFmMC04MDM0ZjZiZDNhM2QiLCJVc2VybmFtZSI6Im1hcmsiLCJFbWFpbCI6Im1hcmtAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg0MTUzNjAsImV4cCI6MTcwODU4ODE2MH0.iLvTiEsdQdpBmoohLIo8cqFQGuJ6N7eKaL6NAdLZ_4c
+
+
+### Fetching a post comment
+GET http://localhost:5000/api/comments/post/17d99549-5564-4efa-9d6a-d0e84e34fa69
 Authorization:  JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI1ZGEyY2ZkZi1hZjk4LTQ3YmMtOWFmMC04MDM0ZjZiZDNhM2QiLCJVc2VybmFtZSI6Im1hcmsiLCJFbWFpbCI6Im1hcmtAZXhhbXBsZS5jb20iLCJpYXQiOjE3MDg0MTUzNjAsImV4cCI6MTcwODU4ODE2MH0.iLvTiEsdQdpBmoohLIo8cqFQGuJ6N7eKaL6NAdLZ_4c
 
 
@@ -576,8 +581,8 @@ content-Type: application/json
 
 {
   "UserID": "bc881a99-5608-4955-87c4-a25a91ca380b",
-  "videoURL": "Testing videos functionality",
-  "videoCaption": "testing"
+  "videoURL": "https://www.shutterstock.com/shutterstock/videos/1072002829/preview/stock-footage-excited-young-female-is-sitting-on-backseat-of-a-car-commuting-home-at-night-looking-out-of-the.webm",
+  "videoCaption": "bOOOOM!"
 }
 
 //Fetch all videos
@@ -595,3 +600,19 @@ GET http://localhost:5000/api/video/uid/bc881a99-5608-4955-87c4-a25a91ca380b
 //Delete video by vid
 ###
 DELETE  http://localhost:5000/api/video/vid/22bf5e47-f7a2-4ac0-b2e3-408cbb2ead41
+
+//Categories
+###
+POST http://localhost:5000/api/category
+content-Type: application/json
+
+{
+  "categoryName": "New Year",
+  "previewURL":"https://www.shutterstock.com/shutterstock/videos/1107158613/preview/stock-footage-happy-new-year-animation.webm"
+}
+
+###
+GET  http://localhost:5000/api/category
+
+###
+DELETE  http://localhost:5000/api/category/a458a994-124d-4b5d-9835-9a1e4a0acef9

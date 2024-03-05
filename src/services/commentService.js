@@ -60,7 +60,10 @@ export const updateContentService = async (updateContent) => {
 export const getPostCommentServices = async (PostID) => {
   const postComment = await poolRequest()
     .input("PostID", sql.VarChar, PostID)
-    .query("SELECT * FROM Comment WHERE PostID = @PostID ");
+    .query(`SELECT tbl_user.Username,tbl_user.profileImage,Comment.*  
+    FROM Comment 
+    INNER JOIN tbl_user ON tbl_user.UserID=Comment.UserID
+    WHERE PostID = @PostID`);
   console.log("postComment", postComment.recordset);
   // console.log("post id", PostID);
   return postComment.recordset;
@@ -76,10 +79,10 @@ export const getSingleCommentServices = async (CommentID) => {
 };
 
 // Fetching all available comment in the database
-export const getAllCommentsService = async (comments) => {
+export const getAllCommentsService = async () => {
   try {
-    const allComments = await poolRequest().query(`SELECT * FROM Comment`);
-    return allComments;
+    const result = await poolRequest().query(`SELECT * FROM Comment`);
+    return result;
   } catch (error) {
     return error;
   }
