@@ -1,11 +1,12 @@
 import {Router} from 'express';
-import { createGroupActivityController, getAllGroupPostController } from '../controllers/groupPostControllers.js';
+import { createGroupActivityController, getAllGroupPostController, getGroupActivityController } from '../controllers/groupPostControllers.js';
 
 const groupPostRouter=Router();
 
 groupPostRouter.post('/groupposts', createGroupActivityController)
 
 groupPostRouter.get('/groupposts', getAllGroupPostController)
+groupPostRouter.get('/groupposts/:GroupID', getGroupActivityController)
 
 // groupPostRouter.get('/groups/single/:GroupID', getSingleGroupController)
 

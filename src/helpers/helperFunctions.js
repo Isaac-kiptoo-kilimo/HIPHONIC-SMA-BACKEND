@@ -54,13 +54,15 @@ export const paginate = (data, req, res) => {
     results.results = data.slice(startIndex, endIndex);
     res.status(200).json(results);
 }
+
 export const orderData = (data, order) => {
     if (order === 'asc') {
-        return data.sort((a, b) => a.id - b.id);
+        return data.sort((a, b) => a.CreatedDate - b.CreatedDate);
     } else if (order === 'desc') {
-        return data.sort((a, b) => b.id - a.id);
+        return data.sort((a, b) => b.CreatedDate - a.CreatedDate);
     }
 }
+
 
 export const checkIfValuesIsEmptyNullUndefined = (req, res, obj) => {
     for (let key in obj) {

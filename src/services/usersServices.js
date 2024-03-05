@@ -87,6 +87,19 @@ export const updatePasswordService = async (updatePassword) => {
   }
 };
 
+export const updateIsFriendService = async (updateIsFriend) => {
+  try {
+    const updatedIsFriend = await poolRequest()
+      .input("UserID", sql.VarChar, updateIsFriend.UserID)
+      .input("isFriend", sql.Bit, updateIsFriend.isFriend)
+      .query("UPDATE tbl_user SET isFriend=1 WHERE UserID=@UserID");
+    logger.info("updated isfriend", updatedPassword);
+    return updatedIsFriend;
+  } catch (error) {
+    return { error: "Invalid Credentials" };
+  }
+};
+
 export const getUserByEmailService = async (Email) => {
   try {
     const getUserByEmail = await poolRequest()
@@ -120,6 +133,20 @@ export const getAllUsersService = async () => {
     return { error: "Invalid Credentials" };
   }
 };
+
+export const getAllNonFriendUsersService = async (user) => {
+  try {
+    const allNonFriendUsers = await poolRequest().query(`
+      SELECT * FROM tbl_user WHERE isFriend = 0
+    `);
+
+    return allNonFriendUsers;
+  } catch (error) {
+    console.error('Error fetching non-friend users:', error.message);
+    return { error: 'Error fetching non-friend users' };
+  }
+};
+
 
 // Fetching delete user
 export const deleteUserServices=async(UserID)=>{
