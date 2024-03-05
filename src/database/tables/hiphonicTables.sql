@@ -47,7 +47,7 @@ CREATE TABLE Comment (
     FOREIGN KEY (PostID) REFERENCES post(Post_id)
 );
 
---////////////////////////////////////////////////////////////////////
+
 -- Create Like Table
 CREATE TABLE tbl_like (
     LikeID VARCHAR(255) PRIMARY KEY,
