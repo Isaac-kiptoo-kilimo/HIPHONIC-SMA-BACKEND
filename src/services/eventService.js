@@ -10,6 +10,7 @@ export const createEventService = async (event) => {
             .input('Location', sql.VarChar, event.Location)
             .input('EventPosterURL', sql.VarChar, event.EventPosterURL)
             .query('INSERT INTO Event (EventID, EventName, Description, EventDate, Location, EventPosterURL) VALUES (@EventID, @EventName, @Description, @EventDate, @Location, @EventPosterURL)');
+            console.log("result",result);
         return result;
     } catch (error) {
         throw error;
@@ -61,3 +62,27 @@ export const deleteEventService = async (eventId) => {
         throw error;
     }
 };
+
+// export const getEventsByAttendeeIDService = async (userId) => {
+//     try {
+//         const result = await poolRequest()
+//             .input('UserID', sql.VarChar, userId)
+//             .query('SELECT * FROM Event WHERE AttendeeID = @UserID'); 
+//         return result.recordset;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
+
+export const getEventsByAttendeeIDService = async (userId) => {
+    try {
+        const result = await poolRequest()
+            .input('UserID', sql.VarChar, userId)
+            .query('SELECT Event.* FROM Event INNER JOIN Attendees ON Event.EventID = Attendees.EventID WHERE Attendees.UserID = @UserID'); 
+        return result.recordset;
+    } catch (error) {
+        throw error;
+    }
+};
+
+

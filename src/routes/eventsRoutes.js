@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createEventController, deleteEventController, getAllEventsController, getSingleEventController } from '../controllers/eventsController.js';
+import { createEventController, deleteEventController, getAllEventsController, getSingleEventController, getEventsByAttendeeID } from '../controllers/eventsController.js';
 
 const eventRouter = Router();
 
@@ -12,6 +12,7 @@ eventRouter.get('/events/single/:EventID', getSingleEventController);
 // eventRouter.put('/events/update/:EventID', updateEventController);
 
 eventRouter.delete('/events/delete/:EventID', deleteEventController);
+eventRouter.get('/users/:UserID/events', getEventsByAttendeeID);
 
 export default eventRouter;
 

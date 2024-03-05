@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 import { sendCreated, sendServerError, sendNotFound, sendBadRequest } from "../helpers/helperFunctions.js";
-import { createEventService, deleteEventService, getEventByIdService, getEventService } from '../services/eventService.js';
+import { createEventService, deleteEventService, getEventByIdService, getEventService, getEventsByAttendeeIDService } from '../services/eventService.js';
 import { eventValidator } from '../validators/eventValidator.js';
 
 export const createEventController = async (req, res) => {
@@ -11,7 +11,7 @@ export const createEventController = async (req, res) => {
             EventID: eventID,
             EventName,
             Description,
-            EventDate,
+            EventDate, 
             Location,
             EventPosterURL
         };
@@ -89,5 +89,26 @@ export const deleteEventController = async (req, res) => {
         }
     } catch (error) {
         sendServerError(res, 'Server error');
+    }
+};
+
+
+// export const getEventsByAttendeeID = async (req, res) => {
+//     const UserID= req.params.UserID; 
+//     try {
+//         const events = await getEventsByAttendeeIDService (UserID);
+//         res.status(200).json(events);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+export const getEventsByAttendeeID = async (req, res) => {
+    try {
+        const userId = req.params.userId; 
+        const events = await getEventsByAttendeeIDService(userId);
+        res.status(200).json(events);
+    } catch (error) {
+        console.error("Error getting events by attendee ID:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 };

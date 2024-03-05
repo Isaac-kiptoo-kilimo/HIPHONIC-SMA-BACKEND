@@ -111,6 +111,8 @@ CREATE  TABLE PhotoComments(
 
 );
 
+DROP TABLE PhotoComments
+
 select * from PhotoComments
 -- Create Group Table
 CREATE TABLE tbl_group (
@@ -131,6 +133,8 @@ CREATE TABLE GroupMembers (
     FOREIGN KEY (MemberID) REFERENCES tbl_user(UserID)
 );
 
+SELECT * FROM GroupMembers
+
 DROP TABLE GroupMembers
 
 
@@ -144,7 +148,7 @@ CREATE TABLE Event (
     EventPosterURL VARCHAR(999)
 );
 
-SELECT * FROM  Events
+SELECT * FROM Event
 
 DROP TABLE Event
 
@@ -158,6 +162,7 @@ CREATE TABLE EventAttendee (
     FOREIGN KEY (AttendeeID) REFERENCES tbl_user(UserID)
 );
 
+SELECT *FROM EventAttendee
 
 DROP TABLE EventAttendee
 
@@ -190,7 +195,8 @@ CREATE TABLE Notifications (
   is_read BIT DEFAULT 0,
   created_at DATETIME DEFAULT GETDATE()
 );
-
+SELECT *
+FROM Notifications;
 CREATE TABLE Status (
   StatusID VARCHAR(255) PRIMARY KEY,
   UserID VARCHAR(255) REFERENCES tbl_user(UserID),
