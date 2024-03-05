@@ -1,5 +1,5 @@
 import { sendServerError, sendCreated, sendDeleteSuccess, sendClientError } from "../helpers/helperFunctions.js";
-import { createEventAttendeeService, getAllEventAttendeesService, deleteEventAttendeeService, checkExistingEventAttendee ,getAllEventAttendeesForEventService } from '../services/eventAtendeeService.js';
+import { createEventAttendeeService, getAllEventAttendeesService, deleteEventAttendeeService, checkExistingEventAttendee ,getAllEventAttendeesForEventService,  getEventAttendeesService, getEventsRegisteredByUser } from '../services/eventAtendeeService.js';
 
 // Controller to create a new event attendee
 export const createEventAttendeeController = async (req, res) => {
@@ -60,4 +60,28 @@ export const getAllEventAttendeesForEventController = async (req, res) => {
   } catch (error) {
       sendServerError(res, 'Internal server error');
   }
+};
+
+export const getEventAttendeesController = async (req, res) => {
+    try {
+        const { AttendeeID } = req.params;
+        const attendees = await getEventAttendeesService(AttendeeID);
+        
+       const eventAttendees = attendees.recordset;
+
+        res.status(200).json({ success: true, data: eventAttendees });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+export const getEventsRegisteredByUserController = async (req, res) => {
+    try {
+        const AttendeeID = req.params.AttendeeID; 
+        const events = await getEventsRegisteredByUser(AttendeeID);
+        const eventAttendees = events.recordset;
+        res.status(200).json(eventAttendees);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };

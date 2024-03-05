@@ -1,5 +1,5 @@
 import { sendBadRequest, sendNotFound, sendCreated, sendServerError } from "../helpers/helperFunctions.js";
-import { getPhotoService, createPhotoService, deletePhotoService, updatePhotoService, getPhotosByUserIDService } from '../services/photosServices.js';
+import { getPhotoService, createPhotoService, deletePhotoService, updatePhotoService, getPhotosByUserIDService, getAllPhotosService } from '../services/photosServices.js';
 import { photoValidator } from '../validators/photoValidator.js';
 import {v4} from 'uuid'
 
@@ -114,5 +114,15 @@ export const getPhotosByUserID = async (req, res) => {
       }
     } catch (error) {
       sendServerError(res, error.message);
+    }
+  };
+
+  export const getAllPhotos = async (req, res) => {
+    try {
+      const photos = await getAllPhotosService();
+      res.json(photos);
+    } catch (error) {
+      console.error('Error fetching all photos:', error);
+      res.status(500).json({ error: 'Failed to fetch all photos' });
     }
   };

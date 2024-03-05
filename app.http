@@ -248,6 +248,13 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:5000/api/eventattendee/230157d5-04f0-4569-a9df-38564422a367
+
+###
+GET http://localhost:5000/api/eventAttendee/09b49f05-6e14-4a37-a370-5959aa28c5a7
+
+
+###
+GET http://localhost:5000/api/eventAttendees/user/09b49f05-6e14-4a37-a370-5959aa28c5a7
 ###
 POST http://localhost:5000/api/eventattendee
 Content-Type: application/json

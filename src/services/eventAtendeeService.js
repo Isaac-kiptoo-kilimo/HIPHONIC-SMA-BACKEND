@@ -84,3 +84,31 @@ export const getAllEventAttendeesForEventService = async (EventID) => {
         return error;
     }
 };
+
+export const getEventAttendeesService = async (AttendeeID) => {
+    try {
+        const allEventAttendees = await poolRequest()
+            .input('AttendeeID', sql.VarChar, AttendeeID)
+            .query(`SELECT EventAttendee.*, tbl_user.*
+                     FROM EventAttendee
+                     JOIN tbl_user ON EventAttendee.AttendeeID = tbl_user.UserID
+                     WHERE EventAttendee.ID = @AttendeeID`);
+        return allEventAttendees;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const getEventsRegisteredByUser = async (AttendeeID) => {
+    try {
+        const eventsRegisteredByUser = await poolRequest()
+            .input('AttendeeID', sql.VarChar, AttendeeID)
+            .query(`SELECT Event.*, EventAttendee.*
+                     FROM Event
+                     INNER JOIN EventAttendee ON Event.EventID = EventAttendee.EventID
+                     WHERE EventAttendee.AttendeeID = @AttendeeID`);
+        return eventsRegisteredByUser;
+    } catch (error) {
+        return error;
+    }
+};

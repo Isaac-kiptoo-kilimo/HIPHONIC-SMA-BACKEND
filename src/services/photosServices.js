@@ -93,3 +93,13 @@ export const getPhotosByUserIDService = async (UserID) => {
     throw error;
   }
 };
+
+
+export const getAllPhotosService = async () => {
+  try {
+    const result = await poolRequest().query("SELECT * FROM Photo");
+    return result.recordset;
+  } catch (error) {
+    throw error;
+  }
+};

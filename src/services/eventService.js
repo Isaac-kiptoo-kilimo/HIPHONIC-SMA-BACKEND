@@ -63,13 +63,26 @@ export const deleteEventService = async (eventId) => {
     }
 };
 
+// export const getEventsByAttendeeIDService = async (userId) => {
+//     try {
+//         const result = await poolRequest()
+//             .input('UserID', sql.VarChar, userId)
+//             .query('SELECT * FROM Event WHERE AttendeeID = @UserID'); 
+//         return result.recordset;
+//     } catch (error) {
+//         throw error;
+//     }
+// };
+
 export const getEventsByAttendeeIDService = async (userId) => {
     try {
         const result = await poolRequest()
             .input('UserID', sql.VarChar, userId)
-            .query('SELECT * FROM Event WHERE AttendeeID = @UserID'); // Assuming there's a UserID column in your Event table
+            .query('SELECT Event.* FROM Event INNER JOIN Attendees ON Event.EventID = Attendees.EventID WHERE Attendees.UserID = @UserID'); 
         return result.recordset;
     } catch (error) {
         throw error;
     }
 };
+
+
