@@ -10,9 +10,7 @@ commentRouter.get("/comments", getAllCommentsController);
 
 commentRouter.get('/comments/single/:CommentID', getSingleCommentController);
 
-commentRouter.get('/comments/:PostID', getPostCommentController);
-
-commentRouter.put('/comments/update/:CommentID', updateCommentControllers);
+commentRouter.get('/comments/post/:PostID', getPostCommentController);
 
 commentRouter.patch('/comments/patch/:CommentID', updateContentControllers);
 

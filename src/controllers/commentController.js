@@ -1,9 +1,9 @@
 import {v4} from 'uuid'
-import { notAuthorized, sendCreated, sendDeleteSuccess, sendServerError} from "../helpers/helperFunctions.js"
+import { notAuthorized, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError} from "../helpers/helperFunctions.js"
 import { createCommentService, deleteCommentServices, getAllCommentsService, getSingleCommentServices, getPostCommentServices, updateCommentService, updateContentService } from '../services/commentService.js';
 import { createCommentValidator, updateCommentValidator, updateContentValidator } from '../validators/commentValidator.js';
 
-
+//New comment
 export const createCommentController = async (req, res) => {
     try {
 
@@ -20,6 +20,7 @@ export const createCommentController = async (req, res) => {
         const createdComment = { CommentID,UserID, PostID,Content,CommentDate};
   
         const result = await createCommentService(createdComment);
+// console.log("comments",result);
   
         if (result.message) {
           sendServerError(res, result.message)
@@ -32,6 +33,7 @@ export const createCommentController = async (req, res) => {
     }
   };
  
+  // update comment
   export const updateCommentControllers = async (req, res) => {
     try {
       const { Content } = req.body;
@@ -78,6 +80,7 @@ export const createCommentController = async (req, res) => {
     }
   };
   
+  //Fetch a single comment
   export const getSingleCommentController=async(req,res)=>{
     try {
       const {CommentID}=req.params
@@ -91,28 +94,31 @@ export const createCommentController = async (req, res) => {
     }
   }
 
+  // get post comment
   export const getPostCommentController = async(req, res) => {
     try {
       const {PostID} = req.params
       const postComment = await getPostCommentServices(PostID)
 
       console.log('postComment', postComment);
-      res.status(200).json({ comment: postComment });
+      res.status(200).json( postComment );
 
     } catch (error) {
       return error
     }
   }
 
+  //Get all commnents
   export const getAllCommentsController = async (req, res) => {
     try {
-      const results = await getAllCommentsService()
-        const comments=results.recordset
-        console.log(comments);
-      res.status(200).json({ Comments: comments });
+      const data = await getAllCommentsService()
+      if (!data.recordset) {
+        return sendNotFound(res, "No comments found")
+      }
+      res.status(200).json(data.recordset);
+      // console.log("This is comments in the controller:", data);
     } catch (error) {
-      console.error("Error fetching all comments:", error);
-      res.status(500).json("Internal server error");
+      sendServerError(res, error.message)
     }
   };
   
