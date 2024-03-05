@@ -22,7 +22,7 @@ CREATE TABLE tbl_user (
 
 SELECT * FROM tbl_user
 
--- DROP TABLE tbl_user
+DROP TABLE tbl_user
 -- Create post Table
 CREATE TABLE post (
 post_id  VARCHAR(255) PRIMARY KEY,
@@ -72,7 +72,7 @@ post_date DATETIME DEFAULT GETDATE(),
 FOREIGN KEY (UserID) REFERENCES tbl_user (UserID),
 );
 
-
+Drop 
 
 -- Create Friendship Table
 CREATE TABLE Friendship (
@@ -106,7 +106,6 @@ CREATE  TABLE PhotoComments(
     CommentID VARCHAR(255),
     PhotoID VARCHAR(255),
     UserID VARCHAR(255),
-   
     Content VARCHAR(999)
 
 );
