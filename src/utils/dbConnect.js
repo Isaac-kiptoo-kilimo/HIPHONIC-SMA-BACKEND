@@ -23,7 +23,7 @@ let appPool;
 let poolRequest;
 
 try {
-    appPool=await sql.connect(sqlConfig);
+    appPool= await sql.connect(sqlConfig);
     poolRequest=()=>appPool.request();
     if(appPool){
         logger.info("DB connected Successfully")
